@@ -52,3 +52,4 @@ jobs:
           files: app-release/*.apk
         env:
           my_secret: ${{ secrets.my_secret }}
+        if: success()  # Only create a release if the build job succeeds
