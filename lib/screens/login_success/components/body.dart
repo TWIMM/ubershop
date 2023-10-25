@@ -10,7 +10,7 @@ class Body extends StatelessWidget {
       children: [
         SizedBox(height: SizeConfig.screenHeight * 0.04),
         Image.asset(
-          "images/good.jpg",
+          "assets/images/good.jpg",
           height: SizeConfig.screenHeight * 0.4, //40%
         ),
         SizedBox(height: SizeConfig.screenHeight * 0.08),
