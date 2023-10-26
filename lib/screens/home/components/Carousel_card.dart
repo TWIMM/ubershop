@@ -2,6 +2,11 @@
 
 import 'custom_card.dart';
 import 'package:flutter/material.dart';
+import 'package:uber/screens/details/details_screen.dart';
+import 'package:uber/components/default_button.dart';
+import 'package:uber/screens/details/details_screen.dart';
+
+import 'package:uber/models/Product.dart';
 
 class CarouselCard extends StatefulWidget {
   final String imagePath;
@@ -9,6 +14,7 @@ class CarouselCard extends StatefulWidget {
   final double height;
   final double cardWidth;
   final BorderRadius borderRadius;
+  final Product? item;
 
   final bool isActivated;
 
@@ -17,6 +23,7 @@ class CarouselCard extends StatefulWidget {
     required this.imagePath,
     required this.title,
     this.height = 0,
+    this.item,
     this.cardWidth = 0,
     this.isActivated = false,
     required this.borderRadius,
@@ -125,7 +132,7 @@ class _CarouselCardState extends State<CarouselCard> {
   Widget _buildContent() {
     return Container(
       padding: EdgeInsets.only(left: 10, right: 10, top: 10),
-      height: widget.height * 0.3,
+      height: widget.height * 0.4,
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -176,6 +183,20 @@ class _CarouselCardState extends State<CarouselCard> {
           SizedBox(
             height: 10,
           ),
+          Padding(
+            padding: const EdgeInsets.only(
+                right: 17.0, top: 17.0, left: 17.0, bottom: 17.0),
+            child: DefaultButton(
+              text: "Détail",
+              press: () {
+                Navigator.pushNamed(
+                  context,
+                  DetailsScreen.routeName,
+                  arguments: ProductDetailsArguments(product: widget.item!),
+                );
+              },
+            ),
+          )
         ],
       ),
     );
