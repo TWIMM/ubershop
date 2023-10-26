@@ -11,6 +11,8 @@ import 'package:uber/screens/sign_in/sign_in_screen.dart';
 import 'package:uber/screens/splash/splash_screen.dart';
 import 'screens/sign_up/sign_up_screen.dart';
 import 'screens/home/components/allproductbody.dart';
+import 'screens/home/components/pro_by_category.dart';
+import 'screens/home/components/liked_product.dart';
 
 final Map<String, WidgetBuilder> routes = {
   SplashScreen.routeName: (context) => SplashScreen(),
@@ -25,4 +27,6 @@ final Map<String, WidgetBuilder> routes = {
   CartScreen.routeName: (context) => CartScreen(),
   ProfileScreen.routeName: (context) => ProfileScreen(),
   AllProducts.routeName: (context) => AllProducts(),
+  ProByCategory.routeName: (context) => ProByCategory(),
+  LikedProducts.routeName: (context) => LikedProducts(),
 };

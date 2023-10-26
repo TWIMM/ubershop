@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'allproductbody.dart';
 import '../../../size_config.dart';
+import 'pro_by_category.dart';
 import 'section_title.dart';
 
 class SpecialOffers extends StatelessWidget {
@@ -17,13 +17,8 @@ class SpecialOffers extends StatelessWidget {
           padding:
               EdgeInsets.symmetric(horizontal: getProportionateScreenWidth(20)),
           child: SectionTitle(
-            title: "Pour vous",
-            press: () {
-              () => Navigator.pushNamed(
-                    context,
-                    AllProducts.routeName,
-                  );
-            },
+            title: "Categories",
+            press: () {},
           ),
         ),
         SizedBox(height: getProportionateScreenWidth(20)),
@@ -35,20 +30,32 @@ class SpecialOffers extends StatelessWidget {
                 image: "assets/images/perf.jpg",
                 category: "Parfums",
                 numOfBrands: 18,
-                press: () {},
+                press: () => Navigator.pushNamed(
+                  context,
+                  ProByCategory.routeName,
+                  arguments: 0,
+                ),
               ),
               SpecialOfferCard(
                 image: "assets/images/cos.jpg",
                 category: "Costumes",
                 numOfBrands: 24,
-                press: () {},
+                press: () => Navigator.pushNamed(
+                  context,
+                  ProByCategory.routeName,
+                  arguments: 1,
+                ),
               ),
               SizedBox(width: getProportionateScreenWidth(20)),
               SpecialOfferCard(
                 image: "assets/images/robes.jpg",
                 category: "Robes de soirées",
                 numOfBrands: 24,
-                press: () {},
+                press: () => Navigator.pushNamed(
+                  context,
+                  ProByCategory.routeName,
+                  arguments: 2,
+                ),
               ),
               SizedBox(width: getProportionateScreenWidth(20)),
               SpecialOfferCard(

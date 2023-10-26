@@ -4,6 +4,7 @@ import 'package:uber/components/form_error.dart';
 import 'package:uber/helper/keyboard.dart';
 import 'package:uber/screens/forgot_password/forgot_password_screen.dart';
 import 'package:uber/screens/login_success/login_success_screen.dart';
+import 'package:uber/ApiCall/ReqHandler.dart';
 
 import '../../../components/default_button.dart';
 import '../../../constants.dart';
@@ -15,6 +16,8 @@ class SignForm extends StatefulWidget {
 }
 
 class _SignFormState extends State<SignForm> {
+  final AuthService authService = AuthService();
+
   final _formKey = GlobalKey<FormState>();
   String? email;
   String? password;
@@ -72,12 +75,14 @@ class _SignFormState extends State<SignForm> {
           SizedBox(height: getProportionateScreenHeight(20)),
           DefaultButton(
             text: "Continuer",
-            press: () {
+            press: () async {
               if (_formKey.currentState!.validate()) {
                 _formKey.currentState!.save();
                 // if all are valid then go to success screen
                 KeyboardUtil.hideKeyboard(context);
                 Navigator.pushNamed(context, LoginSuccessScreen.routeName);
+                /*  String response = await authService.login(email!, password!);
+                print(response); */
               }
             },
           ),

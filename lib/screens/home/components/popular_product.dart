@@ -4,6 +4,7 @@ import 'package:uber/models/Product.dart';
 
 import '../../../size_config.dart';
 import 'section_title.dart';
+import 'allproductbody.dart';
 
 class PopularProducts extends StatelessWidget {
   @override
@@ -13,7 +14,14 @@ class PopularProducts extends StatelessWidget {
         Padding(
           padding:
               EdgeInsets.symmetric(horizontal: getProportionateScreenWidth(20)),
-          child: SectionTitle(title: "Les plus vendus", press: () {}),
+          child: SectionTitle(
+            title: "Les plus vendus",
+            press: () => Navigator.pushNamed(
+              context,
+              AllProducts.routeName,
+              arguments: 'none',
+            ),
+          ),
         ),
         SizedBox(height: getProportionateScreenWidth(20)),
         SingleChildScrollView(
@@ -23,7 +31,7 @@ class PopularProducts extends StatelessWidget {
               ...List.generate(
                 demoProducts.length,
                 (index) {
-                  if (demoProducts[index].isPopular)
+                  if (demoProducts[index].isPopular == true)
                     return ProductCard(product: demoProducts[index]);
 
                   return SizedBox

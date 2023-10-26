@@ -40,8 +40,8 @@ class CustomAlert {
               StyledText(
                 text: text,
                 fontName: "Open Sans",
-                fontSize: 17,
-                fontWeight: FontWeight.w400,
+                fontSize: 13,
+                fontWeight: FontWeight.w300,
                 color: Colors.black,
                 textAlign: TextAlign.center,
               ),

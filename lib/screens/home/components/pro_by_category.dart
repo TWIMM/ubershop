@@ -3,22 +3,20 @@ import 'package:uber/components/product_card.dart';
 import 'package:uber/models/Product.dart';
 import 'Carousel_card.dart';
 
-class AllProducts extends StatelessWidget {
-  static String routeName = "/allproducts";
+class ProByCategory extends StatelessWidget {
+  static String routeName = "/pro_by_category";
 
-  const AllProducts({
+  const ProByCategory({
     Key? key,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    double screenWidth = MediaQuery.of(context).size.width;
     double screenHeight = MediaQuery.of(context).size.height;
-    final favoriteProducts =
-        demoProducts.where((product) => product.isPopular == true).toList();
+    double screenWidth = MediaQuery.of(context).size.width;
     return Scaffold(
       appBar: AppBar(
-        title: Text("Les plus vendus"),
+        title: Text("Produits Par Categorie"),
       ),
       body: Container(
         alignment: Alignment.center,
@@ -28,9 +26,9 @@ class AllProducts extends StatelessWidget {
           height: screenHeight * 0.8,
           child: ListView.builder(
             scrollDirection: Axis.vertical,
-            itemCount: favoriteProducts.length,
+            itemCount: demoProducts.length,
             itemBuilder: (context, int index) {
-              final item = favoriteProducts[index];
+              final item = demoProducts[index];
               return Padding(
                 padding: const EdgeInsets.only(right: 0.0),
                 child: CarouselCard(
@@ -38,7 +36,7 @@ class AllProducts extends StatelessWidget {
                   height: 400,
                   imagePath: item.images[0],
                   title: item.title,
-                  isActivated: item.isPopular,
+                  isActivated: item.isFavourite,
                   borderRadius: BorderRadius.circular(8),
                 ),
               );
