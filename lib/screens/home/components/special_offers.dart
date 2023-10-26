@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-
 import '../../../size_config.dart';
 import 'section_title.dart';
 
@@ -18,7 +17,9 @@ class SpecialOffers extends StatelessWidget {
               EdgeInsets.symmetric(horizontal: getProportionateScreenWidth(20)),
           child: SectionTitle(
             title: "Pour vous",
-            press: () {},
+            press: () {
+              () => Navigator.pushNamed(context);
+            },
           ),
         ),
         SizedBox(height: getProportionateScreenWidth(20)),
