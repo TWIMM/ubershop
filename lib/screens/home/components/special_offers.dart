@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'allproductbody.dart';
 import '../../../size_config.dart';
 import 'section_title.dart';
 
@@ -18,7 +19,10 @@ class SpecialOffers extends StatelessWidget {
           child: SectionTitle(
             title: "Pour vous",
             press: () {
-              () => Navigator.pushNamed(context);
+              () => Navigator.pushNamed(
+                    context,
+                    AllProducts.routeName,
+                  );
             },
           ),
         ),
