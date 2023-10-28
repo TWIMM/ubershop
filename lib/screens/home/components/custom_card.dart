@@ -25,7 +25,7 @@ class CustomCard extends StatelessWidget {
     return Container(
       width: width,
       height: height,
-      padding: EdgeInsets.all(12),
+      padding: EdgeInsets.all(3),
       decoration: BoxDecoration(
           borderRadius: borderRadius,
           image: isBackground!

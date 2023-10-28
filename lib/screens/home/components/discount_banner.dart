@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
-
+import 'package:geocode/geocode.dart';
 import '../../../size_config.dart';
 
 class DiscountBanner extends StatelessWidget {
+  final String address;
   const DiscountBanner({
     Key? key,
+    required this.address,
   }) : super(key: key);
 
   @override
@@ -25,6 +27,7 @@ class DiscountBanner extends StatelessWidget {
         TextSpan(
           style: TextStyle(color: Colors.white),
           children: [
+            TextSpan(text: "${address}\n"),
             TextSpan(text: "Période de réduction\n"),
             TextSpan(
               text: "Jusqu'à 20%",

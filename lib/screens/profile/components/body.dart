@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
-
+import 'package:uber/screens/changePassword/changepwd.dart';
+import 'package:uber/screens/sign_in/sign_in_screen.dart';
 import 'profile_menu.dart';
 import 'profile_pic.dart';
+import 'package:uber/screens/Messagerie/customercare.dart';
 
 class Body extends StatelessWidget {
   @override
@@ -15,27 +17,29 @@ class Body extends StatelessWidget {
           ProfileMenu(
             text: "Sécurité",
             icon: "assets/icons/User Icon.svg",
-            press: () => {},
-          ),
-          ProfileMenu(
-            text: "Notifications",
-            icon: "assets/icons/Bell.svg",
-            press: () {},
-          ),
-          ProfileMenu(
-            text: "Settings",
-            icon: "assets/icons/Settings.svg",
-            press: () {},
+            press: () => Navigator.pushNamed(
+              context,
+              ChangePwd.routeName,
+              arguments: '',
+            ),
           ),
           ProfileMenu(
             text: "Discuter avec le service client",
             icon: "assets/icons/Question mark.svg",
-            press: () {},
+            press: () => Navigator.pushNamed(
+              context,
+              ChatDetailPage.routeName,
+              arguments: '',
+            ),
           ),
           ProfileMenu(
             text: "Se déconnecter",
             icon: "assets/icons/Log out.svg",
-            press: () {},
+            press: () => Navigator.pushNamed(
+              context,
+              SignInScreen.routeName,
+              arguments: '',
+            ),
           ),
         ],
       ),

@@ -43,7 +43,6 @@ class _CarouselCardState extends State<CarouselCard> {
       child: Container(
         alignment: Alignment.center,
         width: widget.cardWidth,
-        height: widget.height,
         decoration: BoxDecoration(
           borderRadius: widget.borderRadius,
           boxShadow: [
@@ -52,14 +51,13 @@ class _CarouselCardState extends State<CarouselCard> {
                 offset: Offset(5, 10),
                 blurRadius: 20)
           ],
-          color: Color.fromRGBO(255, 255, 255, 1),
+          color: Colors.white,
         ),
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             _buildImage(),
-            _buildContent(),
           ],
         ),
       ),
@@ -69,9 +67,8 @@ class _CarouselCardState extends State<CarouselCard> {
   Widget _buildImage() {
     return SizedBox(
       width: double.infinity,
-      height: widget.height * 0.6,
       child: CustomCard(
-        height: double.infinity,
+        height: widget.height * 0.27,
         width: double.infinity,
         imageUrl: widget.imagePath,
         borderRadius: BorderRadius.circular(8),
@@ -79,25 +76,26 @@ class _CarouselCardState extends State<CarouselCard> {
         childWidget: Stack(
           children: [
             Align(
-              alignment: Alignment.topLeft,
-              child: CustomCard(
-                childWidget: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text('4.5'),
-                    Icon(
-                      Icons.star,
-                      color: Colors.yellow,
-                      size: 15,
+                alignment: Alignment.bottomRight,
+                child: GestureDetector(
+                  onTap: () => Navigator.pushNamed(
+                    context,
+                    DetailsScreen.routeName,
+                    arguments: ProductDetailsArguments(product: widget.item!),
+                  ),
+                  child: CustomCard(
+                    childWidget: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text('Détails',
+                            style: TextStyle(color: Color(0xFFFF1844))),
+                      ],
                     ),
-                    Text('+25')
-                  ],
-                ),
-                width: 100,
-                height: 40,
-                borderRadius: BorderRadius.circular(100),
-              ),
-            ),
+                    width: 100,
+                    height: 30,
+                    borderRadius: BorderRadius.circular(80),
+                  ),
+                )),
             Align(
               alignment: Alignment.topRight,
               child: GestureDetector(
@@ -125,79 +123,6 @@ class _CarouselCardState extends State<CarouselCard> {
             ),
           ],
         ),
-      ),
-    );
-  }
-
-  Widget _buildContent() {
-    return Container(
-      padding: EdgeInsets.only(left: 10, right: 10, top: 10),
-      height: widget.height * 0.4,
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: [
-              Text(widget.title),
-              SizedBox(
-                width: 20,
-              ),
-              Container(
-                width: 12,
-                height: 12,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(100),
-                  color: Colors.green,
-                ),
-                child: Icon(
-                  Icons.check,
-                  color: Colors.white,
-                  size: 10,
-                ),
-              ),
-            ],
-          ),
-          Row(
-            children: [
-              Text("Livraison rapide"),
-              SizedBox(
-                width: 20,
-              ),
-              Row(
-                children: [
-                  Icon(
-                    Icons.timer,
-                    size: 15,
-                    color: Colors.red,
-                  ),
-                  SizedBox(
-                    width: 5,
-                  ),
-                  Text("10-15 min"),
-                ],
-              ),
-            ],
-          ),
-          SizedBox(
-            height: 10,
-          ),
-          Padding(
-            padding: const EdgeInsets.only(
-                right: 17.0, top: 17.0, left: 17.0, bottom: 17.0),
-            child: DefaultButton(
-              text: "Détail",
-              press: () {
-                Navigator.pushNamed(
-                  context,
-                  DetailsScreen.routeName,
-                  arguments: ProductDetailsArguments(product: widget.item!),
-                );
-              },
-            ),
-          )
-        ],
       ),
     );
   }

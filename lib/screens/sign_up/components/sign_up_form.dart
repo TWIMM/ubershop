@@ -3,7 +3,7 @@ import 'package:uber/components/custom_surfix_icon.dart';
 import 'package:uber/components/default_button.dart';
 import 'package:uber/components/form_error.dart';
 import 'package:uber/screens/complete_profile/complete_profile_screen.dart';
-
+import 'package:uber/ApiCall/ReqHandler.dart';
 import '../../../constants.dart';
 import '../../../size_config.dart';
 
@@ -14,6 +14,7 @@ class SignUpForm extends StatefulWidget {
 
 class _SignUpFormState extends State<SignUpForm> {
   final _formKey = GlobalKey<FormState>();
+  final AuthService authService = AuthService();
   String? email;
   String? password;
   String? conform_password;
@@ -49,11 +50,19 @@ class _SignUpFormState extends State<SignUpForm> {
           SizedBox(height: getProportionateScreenHeight(40)),
           DefaultButton(
             text: "Continuer",
-            press: () {
+            press: () async {
               if (_formKey.currentState!.validate()) {
                 _formKey.currentState!.save();
                 // if all are valid then go to success screen
-                Navigator.pushNamed(context, CompleteProfileScreen.routeName);
+                // Navigator.pushNamed(context, CompleteProfileScreen.routeName);
+                bool response = await authService.register(email!, password!);
+                print(response);
+                if (response == false) {
+                  addError(error: incorrectData);
+                } else {
+                  // Navigator.pushNamed(context, LoginSuccessScreen.routeName);
+                  removeError(error: incorrectAccess);
+                }
               }
             },
           ),

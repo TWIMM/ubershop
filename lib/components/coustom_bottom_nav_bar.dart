@@ -3,6 +3,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:uber/screens/home/home_screen.dart';
 import 'package:uber/screens/profile/profile_screen.dart';
 import 'package:uber/screens/home/components/liked_product.dart';
+import 'package:uber/screens/Tracking/tracking.dart';
 import '../constants.dart';
 import '../enums.dart';
 
@@ -59,8 +60,14 @@ class CustomBottomNavBar extends StatelessWidget {
                     Navigator.pushNamed(context, LikedProducts.routeName),
               ),
               IconButton(
-                icon: SvgPicture.asset("assets/icons/Location point.svg"),
-                onPressed: () {},
+                icon: SvgPicture.asset(
+                  "assets/icons/Location point.svg",
+                  color: MenuState.location == selectedMenu
+                      ? kPrimaryColor
+                      : inActiveIconColor,
+                ),
+                onPressed: () =>
+                    Navigator.pushNamed(context, MyHomePage2.routeName),
               ),
               IconButton(
                 icon: SvgPicture.asset(

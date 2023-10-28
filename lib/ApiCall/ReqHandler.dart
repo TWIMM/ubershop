@@ -18,8 +18,10 @@ class RequestService {
 
     if (response.statusCode == 200) {
       print(response.body);
-    } else {
-      throw Exception('Failed to perform POST request');
+    } else if (response.statusCode == 500) {
+      final reqRes = jsonDecode(response.body);
+      return reqRes['success'];
+      //throw Exception('Failed to perform POST request');
     }
   }
 }
@@ -32,7 +34,19 @@ class AuthService {
     };
 
     final response = await RequestService.post(ApiEndpoints.login, loginData);
+    final reqRes = response;
+    return reqRes;
+  }
 
-    return jsonEncode(response);
+  Future register(String email, String password) async {
+    final registerData = {
+      'login': email,
+      'password': password,
+    };
+
+    final response =
+        await RequestService.post(ApiEndpoints.register, registerData);
+    final reqRes = response;
+    return reqRes;
   }
 }

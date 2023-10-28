@@ -28,11 +28,13 @@ final RegExp emailValidatorRegExp =
 const String kEmailNullError = "Veuillez entrer votre Email";
 const String kInvalidEmailError = "Veuillez entrer un email Valide";
 const String kPassNullError = "Veuillez entrer votre mot de passe";
-const String kShortPassError = "Password is too short";
+const String kShortPassError = "Mot de passe trop court";
 const String kMatchPassError = "Les mots de passes ne correspondent pas";
 const String kNamelNullError = "Veuillez entrer votre nom";
 const String kPhoneNumberNullError = "Veuillez entrer votre  numero";
 const String kAddressNullError = "Veuillez entrer votre adresse";
+const String incorrectAccess = "Identifiants incorrects";
+const String incorrectData = "Vos données sont invalide";
 
 final otpInputDecoration = InputDecoration(
   contentPadding:
@@ -61,3 +63,5 @@ class ApiEndpoints {
 
   static const baseUrl = 'https://backend-dev-itine.onrender.com';
 }
+
+
