@@ -35,10 +35,8 @@ dependencies:
   google_fonts: ^6.1.0
   flutter_chat_ui: ^1.6.9
   order_tracker: ^0.0.2
-  geocoding: ^2.1.1
   geolocator: ^10.1.0
   geocode: ^1.0.3
-  kommunicate_flutter: ^1.7.3
 
 
 
