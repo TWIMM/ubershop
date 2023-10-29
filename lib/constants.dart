@@ -35,6 +35,7 @@ const String kPhoneNumberNullError = "Veuillez entrer votre  numero";
 const String kAddressNullError = "Veuillez entrer votre adresse";
 const String incorrectAccess = "Identifiants incorrects";
 const String incorrectData = "Vos données sont invalide";
+const String idnull = "Vos données sont invalide";
 
 final otpInputDecoration = InputDecoration(
   contentPadding:

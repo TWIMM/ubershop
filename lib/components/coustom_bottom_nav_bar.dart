@@ -3,7 +3,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:uber/screens/home/home_screen.dart';
 import 'package:uber/screens/profile/profile_screen.dart';
 import 'package:uber/screens/home/components/liked_product.dart';
-import 'package:uber/screens/Tracking/tracking.dart';
+import 'package:uber/screens/Tracking/Trackingnumber.dart';
 import '../constants.dart';
 import '../enums.dart';
 
@@ -67,7 +67,7 @@ class CustomBottomNavBar extends StatelessWidget {
                       : inActiveIconColor,
                 ),
                 onPressed: () =>
-                    Navigator.pushNamed(context, MyHomePage2.routeName),
+                    Navigator.pushNamed(context, Trackingnumber.routeName),
               ),
               IconButton(
                 icon: SvgPicture.asset(

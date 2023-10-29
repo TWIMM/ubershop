@@ -15,8 +15,8 @@ import 'screens/home/components/pro_by_category.dart';
 import 'screens/home/components/liked_product.dart';
 import 'screens/changePassword/changepwd.dart';
 import 'screens/Messagerie/customercare.dart';
+import 'screens/Tracking/Trackingnumber.dart';
 import 'screens/Tracking/tracking.dart';
-import 'package:uber/constants.dart';
 
 final Map<String, WidgetBuilder> routes = {
   SplashScreen.routeName: (context) => SplashScreen(),
@@ -35,5 +35,6 @@ final Map<String, WidgetBuilder> routes = {
   LikedProducts.routeName: (context) => LikedProducts(),
   ChangePwd.routeName: (context) => ChangePwd(),
   ChatDetailPage.routeName: (context) => ChatDetailPage(),
+  Trackingnumber.routeName: (context) => Trackingnumber(),
   MyHomePage2.routeName: (context) => MyHomePage2(),
 };
