@@ -2,13 +2,38 @@ import 'package:flutter/material.dart';
 import '../../../size_config.dart';
 import 'pro_by_category.dart';
 import 'section_title.dart';
+import 'package:uber/ApiCall/ReqHandler.dart';
+import '../../../constants.dart';
 
-class SpecialOffers extends StatelessWidget {
+class SpecialOffers extends StatefulWidget {
+  final user_id;
   const SpecialOffers({
     Key? key,
+    required this.user_id,
   }) : super(key: key);
+  @override
+  _SpecialOffersState createState() => _SpecialOffersState();
+}
+
+class _SpecialOffersState extends State<SpecialOffers> {
+  final CategorieService categorieService = CategorieService();
+  List<Map<String, dynamic>> categories = [];
 
   @override
+  void initState() {
+    super.initState();
+    loadCategories();
+  }
+
+  Future<void> loadCategories() async {
+    print(4);
+    dynamic response = await categorieService.getCategories();
+    //print(response);
+    setState(() {
+      categories = List<Map<String, dynamic>>.from(response);
+    });
+  }
+
   Widget build(BuildContext context) {
     SizeConfig().init(context);
     return Column(
@@ -26,50 +51,26 @@ class SpecialOffers extends StatelessWidget {
           scrollDirection: Axis.horizontal,
           child: Row(
             children: [
-              SpecialOfferCard(
-                image: "assets/images/perf.jpg",
-                category: "Parfums",
-                numOfBrands: 18,
-                press: () => Navigator.pushNamed(
-                  context,
-                  ProByCategory.routeName,
-                  arguments: 0,
-                ),
-              ),
-              SpecialOfferCard(
-                image: "assets/images/cos.jpg",
-                category: "Costumes",
-                numOfBrands: 24,
-                press: () => Navigator.pushNamed(
-                  context,
-                  ProByCategory.routeName,
-                  arguments: 1,
-                ),
-              ),
-              SizedBox(width: getProportionateScreenWidth(20)),
-              SpecialOfferCard(
-                image: "assets/images/robes.jpg",
-                category: "Robes de soirées",
-                numOfBrands: 24,
-                press: () => Navigator.pushNamed(
-                  context,
-                  ProByCategory.routeName,
-                  arguments: 2,
-                ),
-              ),
-              SizedBox(width: getProportionateScreenWidth(20)),
-              SpecialOfferCard(
-                image: "assets/images/chau.jpg",
-                category: "Chaussures",
-                numOfBrands: 24,
-                press: () {},
-              ),
-              SizedBox(width: getProportionateScreenWidth(20)),
-              SpecialOfferCard(
-                image: "assets/images/Image Banner 3.png",
-                category: "Accessoires",
-                numOfBrands: 24,
-                press: () {},
+              ...List.generate(
+                categories.length,
+                (index) {
+                  Map<String, dynamic> category = categories[index];
+                  return SpecialOfferCard(
+                    image: baseImageUrl +
+                        '/categories/' +
+                        category['background_image'],
+                    category: category['label'],
+                    numOfBrands: 18,
+                    press: () => Navigator.pushNamed(
+                      context,
+                      ProByCategory.routeName,
+                      arguments: {
+                        'category': category,
+                        'user_id': widget.user_id,
+                      },
+                    ),
+                  );
+                },
               ),
             ],
           ),
@@ -79,7 +80,7 @@ class SpecialOffers extends StatelessWidget {
   }
 }
 
-class SpecialOfferCard extends StatelessWidget {
+class SpecialOfferCard extends StatefulWidget {
   const SpecialOfferCard({
     Key? key,
     required this.category,
@@ -93,11 +94,16 @@ class SpecialOfferCard extends StatelessWidget {
   final GestureTapCallback press;
 
   @override
+  _SpecialOfferCardState createState() => _SpecialOfferCardState();
+}
+
+class _SpecialOfferCardState extends State<SpecialOfferCard> {
+  @override
   Widget build(BuildContext context) {
     return Padding(
       padding: EdgeInsets.only(left: getProportionateScreenWidth(20)),
       child: GestureDetector(
-        onTap: press,
+        onTap: widget.press,
         child: SizedBox(
           width: getProportionateScreenWidth(242),
           height: getProportionateScreenWidth(200),
@@ -105,8 +111,8 @@ class SpecialOfferCard extends StatelessWidget {
             borderRadius: BorderRadius.circular(20),
             child: Stack(
               children: [
-                Image.asset(
-                  image,
+                Image.network(
+                  widget.image,
                   width: double.infinity,
                   height: double.infinity,
                   fit: BoxFit.cover,
@@ -133,13 +139,13 @@ class SpecialOfferCard extends StatelessWidget {
                       style: TextStyle(color: Colors.white),
                       children: [
                         TextSpan(
-                          text: "$category\n",
+                          text: "${widget.category}\n",
                           style: TextStyle(
                             fontSize: getProportionateScreenWidth(18),
                             fontWeight: FontWeight.bold,
                           ),
                         ),
-                        TextSpan(text: "$numOfBrands Articles")
+                        TextSpan(text: "${widget.numOfBrands} Articles")
                       ],
                     ),
                   ),

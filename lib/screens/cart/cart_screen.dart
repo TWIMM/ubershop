@@ -7,13 +7,15 @@ import 'components/check_out_card.dart';
 
 class CartScreen extends StatelessWidget {
   static String routeName = "/cart";
+
   @override
   Widget build(BuildContext context) {
+    final user_id = ModalRoute.of(context)?.settings.arguments;
     SizeConfig().init(context);
     return Scaffold(
       appBar: buildAppBar(context),
-      body: Body(),
-      bottomNavigationBar: CheckoutCard(),
+      body: Body(user_id: user_id),
+      bottomNavigationBar: CheckoutCard(user_id: user_id),
     );
   }
 
@@ -24,10 +26,6 @@ class CartScreen extends StatelessWidget {
           Text(
             "Votre Panier",
             style: TextStyle(color: Colors.black),
-          ),
-          Text(
-            "${demoCarts.length} articles",
-            style: Theme.of(context).textTheme.caption,
           ),
         ],
       ),

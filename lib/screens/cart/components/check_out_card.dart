@@ -1,13 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:uber/components/default_button.dart';
-
+import 'package:uber/ApiCall/ReqHandler.dart';
 import '../../../constants.dart';
 import '../../../size_config.dart';
 
 class CheckoutCard extends StatelessWidget {
-  const CheckoutCard({
+  final user_id;
+  final product_id;
+
+  CheckoutCard({
     Key? key,
+    this.user_id,
+    this.product_id,
   }) : super(key: key);
 
   @override

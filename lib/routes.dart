@@ -17,6 +17,7 @@ import 'screens/changePassword/changepwd.dart';
 import 'screens/Messagerie/customercare.dart';
 import 'screens/Tracking/trackingnumber.dart';
 import 'screens/Tracking/tracking.dart';
+import 'screens/Livreur/dashboard.dart';
 
 final Map<String, WidgetBuilder> routes = {
   SplashScreen.routeName: (context) => SplashScreen(),
@@ -36,5 +37,6 @@ final Map<String, WidgetBuilder> routes = {
   ChangePwd.routeName: (context) => ChangePwd(),
   ChatDetailPage.routeName: (context) => ChatDetailPage(),
   Trackingnumber.routeName: (context) => Trackingnumber(),
+  Dashboard.routeName: (context) => Dashboard(),
   MyHomePage2.routeName: (context) => MyHomePage2(),
 };

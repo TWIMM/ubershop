@@ -37,6 +37,7 @@ dependencies:
   order_tracker: ^0.0.2
   geolocator: ^10.1.0
   geocode: ^1.0.3
+  shared_preferences: ^2.2.2
 
 
 

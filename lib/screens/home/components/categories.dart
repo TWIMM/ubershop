@@ -1,8 +1,21 @@
 import 'package:flutter/material.dart';
-
+import 'package:uber/ApiCall/ReqHandler.dart';
 import '../../../size_config.dart';
 
-class Categories extends StatelessWidget {
+class Categories extends StatefulWidget {
+  @override
+  _CategoriesState createState() => _CategoriesState();
+}
+
+class _CategoriesState extends State<Categories> {
+  final CategorieService categorieService = CategorieService();
+  @override
+  void initState() {
+    super.initState();
+  }
+
+ 
+
   @override
   Widget build(BuildContext context) {
     SizeConfig().init(context);
@@ -11,6 +24,7 @@ class Categories extends StatelessWidget {
       {"icon": "images/femme.png", "text": "Femmes"},
       {"icon": "images/enfants.png", "text": "Enfants"},
     ];
+
     return Padding(
       padding: EdgeInsets.all(getProportionateScreenWidth(20)),
       child: Row(

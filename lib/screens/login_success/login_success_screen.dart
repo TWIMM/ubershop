@@ -6,13 +6,15 @@ class LoginSuccessScreen extends StatelessWidget {
   static String routeName = "/login_success";
   @override
   Widget build(BuildContext context) {
+    final int user_id = ModalRoute.of(context)?.settings.arguments as int;
+    print(user_id);
     SizeConfig().init(context);
     return Scaffold(
       appBar: AppBar(
         leading: SizedBox(),
-        title: Text(""),
+        title: Text(''),
       ),
-      body: Body(),
+      body: Body(user_id: user_id),
     );
   }
 }

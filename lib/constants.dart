@@ -36,6 +36,7 @@ const String kAddressNullError = "Veuillez entrer votre adresse";
 const String incorrectAccess = "Identifiants incorrects";
 const String incorrectData = "Vos données sont invalide";
 const String idnull = "Vos données sont invalide";
+const String knullname = "Veuillez entrer votre nom";
 
 final otpInputDecoration = InputDecoration(
   contentPadding:
@@ -55,14 +56,20 @@ OutlineInputBorder outlineInputBorder() {
 class ApiEndpoints {
   static const register = '/auth/register';
   static const login = '/auth/login';
-  static const profile = '/auth/profile';
+  static const getuser = '/auth/getuser';
 
-  static const products = '/products';
-  static const categories = '/categories';
+  static const addtocart = '/cart/add';
+  static const getcart = '/cart/get';
+  static const deletecart = '/cart/delete';
 
-  static const cart = '/cart-items/';
+  static const getcategorie = '/categories/getallcategories';
+  static const getcategoriebyid = '/categories/getbyid';
 
-  static const baseUrl = 'https://backend-dev-itine.onrender.com';
+  static const getproduct = '/produits/getallproduits';
+  static const getproductbycategory = '/produits/getproductbycategory';
+  static const getspecificproduct = '/produits/getbyid';
+
+  static const baseUrl = 'https://ottawa-canada.net/public/api';
 }
 
-
+const String baseImageUrl = "https://ottawa-canada.net/public/assets/images";

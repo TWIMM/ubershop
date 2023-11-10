@@ -1,6 +1,7 @@
 // ignore_for_file: prefer_const_literals_to_create_immutables, prefer_const_constructors
 
 import 'package:flutter/material.dart';
+import '../../../constants.dart';
 
 class CustomCard extends StatelessWidget {
   final Widget childWidget;
@@ -29,7 +30,9 @@ class CustomCard extends StatelessWidget {
       decoration: BoxDecoration(
           borderRadius: borderRadius,
           image: isBackground!
-              ? DecorationImage(image: AssetImage(imageUrl!), fit: BoxFit.cover)
+              ? DecorationImage(
+                  image: NetworkImage(baseImageUrl + '/produits/' + imageUrl!),
+                  fit: BoxFit.cover)
               : null,
           boxShadow: [
             BoxShadow(

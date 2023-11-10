@@ -7,11 +7,20 @@ import 'color_dots.dart';
 import 'product_description.dart';
 import 'top_rounded_container.dart';
 import 'product_images.dart';
+import 'package:uber/ApiCall/ReqHandler.dart';
 
 class Body extends StatelessWidget {
   final Product product;
+  final int? user_id;
 
-  const Body({Key? key, required this.product}) : super(key: key);
+  Body({Key? key, required this.product, this.user_id}) : super(key: key);
+
+  final CategorieService categorieService = CategorieService();
+
+  Future<void> addToCart() async {
+    dynamic response = await categorieService.addToCart(product.id, user_id);
+    print(response);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -42,7 +51,9 @@ class Body extends StatelessWidget {
                         ),
                         child: DefaultButton(
                           text: "Ajouter au panier",
-                          press: () {},
+                          press: () {
+                            addToCart();
+                          },
                         ),
                       ),
                     ),

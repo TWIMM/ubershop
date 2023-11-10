@@ -81,12 +81,13 @@ class _SignFormState extends State<SignForm> {
                 // if all are valid then go to success screen
                 KeyboardUtil.hideKeyboard(context);
                 // Navigator.pushNamed(context, LoginSuccessScreen.routeName);
-                bool response = await authService.login(email!, password!);
+                dynamic response = await authService.login(email!, password!);
                 print(response);
-                if (response == false) {
+                if (response['status'] == false) {
                   addError(error: incorrectAccess);
                 } else {
-                  Navigator.pushNamed(context, LoginSuccessScreen.routeName);
+                  Navigator.pushNamed(context, LoginSuccessScreen.routeName,
+                      arguments: response['user_id']);
                   removeError(error: incorrectAccess);
                 }
               }

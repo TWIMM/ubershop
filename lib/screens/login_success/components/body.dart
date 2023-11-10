@@ -4,6 +4,9 @@ import 'package:uber/screens/home/home_screen.dart';
 import 'package:uber/size_config.dart';
 
 class Body extends StatelessWidget {
+  final user_id;
+
+  Body({required this.user_id});
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -28,7 +31,8 @@ class Body extends StatelessWidget {
           child: DefaultButton(
             text: "Aller à la page d'acceuil",
             press: () {
-              Navigator.pushNamed(context, HomeScreen.routeName);
+              Navigator.pushNamed(context, HomeScreen.routeName,
+                  arguments: user_id);
             },
           ),
         ),

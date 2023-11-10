@@ -6,6 +6,7 @@ import 'package:uber/screens/complete_profile/complete_profile_screen.dart';
 import 'package:uber/ApiCall/ReqHandler.dart';
 import '../../../constants.dart';
 import '../../../size_config.dart';
+import '../../sign_in/sign_in_screen.dart';
 
 class SignUpForm extends StatefulWidget {
   @override
@@ -16,6 +17,7 @@ class _SignUpFormState extends State<SignUpForm> {
   final _formKey = GlobalKey<FormState>();
   final AuthService authService = AuthService();
   String? email;
+  String? name;
   String? password;
   String? conform_password;
   bool remember = false;
@@ -41,6 +43,8 @@ class _SignUpFormState extends State<SignUpForm> {
       key: _formKey,
       child: Column(
         children: [
+          buildNamelFormField(),
+          SizedBox(height: getProportionateScreenHeight(30)),
           buildEmailFormField(),
           SizedBox(height: getProportionateScreenHeight(30)),
           buildPasswordFormField(),
@@ -55,13 +59,14 @@ class _SignUpFormState extends State<SignUpForm> {
                 _formKey.currentState!.save();
                 // if all are valid then go to success screen
                 // Navigator.pushNamed(context, CompleteProfileScreen.routeName);
-                bool response = await authService.register(email!, password!);
+                dynamic response =
+                    await authService.register(email!, password!, name!);
                 print(response);
                 if (response == false) {
                   addError(error: incorrectData);
                 } else {
-                  // Navigator.pushNamed(context, LoginSuccessScreen.routeName);
-                  removeError(error: incorrectAccess);
+                  Navigator.pushNamed(context, SignInScreen.routeName);
+                  removeError(error: incorrectData);
                 }
               }
             },
@@ -166,6 +171,34 @@ class _SignUpFormState extends State<SignUpForm> {
         // if you r using flutter less then 1.20.* then maybe this is not working properly
         floatingLabelBehavior: FloatingLabelBehavior.always,
         suffixIcon: CustomSurffixIcon(svgIcon: "assets/icons/Mail.svg"),
+      ),
+    );
+  }
+
+  TextFormField buildNamelFormField() {
+    return TextFormField(
+      keyboardType: TextInputType.name,
+      onSaved: (newValue) => name = newValue,
+      onChanged: (value) {
+        if (value.isNotEmpty) {
+          removeError(error: knullname);
+        }
+        return null;
+      },
+      validator: (value) {
+        if (value!.isEmpty) {
+          addError(error: knullname);
+          return "";
+        }
+        return null;
+      },
+      decoration: InputDecoration(
+        labelText: "Nom",
+        hintText: "Entrez votre nom",
+        // If  you are using latest version of flutter then lable text and hint text shown like this
+        // if you r using flutter less then 1.20.* then maybe this is not working properly
+        floatingLabelBehavior: FloatingLabelBehavior.always,
+        suffixIcon: CustomSurffixIcon(svgIcon: "assets/icons/User Icon.svg"),
       ),
     );
   }
