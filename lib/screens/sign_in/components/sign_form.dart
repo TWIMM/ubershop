@@ -5,7 +5,8 @@ import 'package:uber/helper/keyboard.dart';
 import 'package:uber/screens/forgot_password/forgot_password_screen.dart';
 import 'package:uber/screens/login_success/login_success_screen.dart';
 import 'package:uber/ApiCall/ReqHandler.dart';
-
+import 'package:provider/provider.dart';
+import '../../../UseridProvider.dart';
 import '../../../components/default_button.dart';
 import '../../../constants.dart';
 import '../../../size_config.dart';
@@ -40,6 +41,7 @@ class _SignFormState extends State<SignForm> {
 
   @override
   Widget build(BuildContext context) {
+    var userProvider = Provider.of<UserProvider>(context);
     return Form(
       key: _formKey,
       child: Column(
@@ -80,14 +82,16 @@ class _SignFormState extends State<SignForm> {
                 _formKey.currentState!.save();
                 // if all are valid then go to success screen
                 KeyboardUtil.hideKeyboard(context);
-                // Navigator.pushNamed(context, LoginSuccessScreen.routeName);
                 dynamic response = await authService.login(email!, password!);
                 print(response);
                 if (response['status'] == false) {
                   addError(error: incorrectAccess);
                 } else {
-                  Navigator.pushNamed(context, LoginSuccessScreen.routeName,
-                      arguments: response['user_id']);
+                  userProvider.setUserId(response['user_id']);
+                  Navigator.pushNamed(
+                    context,
+                    LoginSuccessScreen.routeName,
+                  );
                   removeError(error: incorrectAccess);
                 }
               }

@@ -1,14 +1,21 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:uber/routes.dart';
 import 'package:uber/screens/splash/splash_screen.dart';
 import 'package:uber/theme.dart';
+import 'UseridProvider.dart'; // Import your UserProvider file
 
 void main() {
-  runApp(MyApp());
+  runApp(
+    ChangeNotifierProvider(
+      create: (context) =>
+          UserProvider(), // Wrap the app with ChangeNotifierProvider
+      child: MyApp(),
+    ),
+  );
 }
 
 class MyApp extends StatelessWidget {
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(

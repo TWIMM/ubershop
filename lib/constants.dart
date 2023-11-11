@@ -64,6 +64,7 @@ class ApiEndpoints {
 
   static const getcategorie = '/categories/getallcategories';
   static const getcategoriebyid = '/categories/getbyid';
+  static const getcount = '/categories/getcount';
 
   static const getproduct = '/produits/getallproduits';
   static const getproductbycategory = '/produits/getproductbycategory';

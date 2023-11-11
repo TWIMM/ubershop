@@ -1,15 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:uber/ApiCall/ReqHandler.dart'; // Import your API handler
 import '../../../size_config.dart';
 import 'pro_by_category.dart';
 import 'section_title.dart';
-import 'package:uber/ApiCall/ReqHandler.dart';
 import '../../../constants.dart';
 
 class SpecialOffers extends StatefulWidget {
-  final user_id;
   const SpecialOffers({
     Key? key,
-    required this.user_id,
   }) : super(key: key);
   @override
   _SpecialOffersState createState() => _SpecialOffersState();
@@ -26,14 +24,18 @@ class _SpecialOffersState extends State<SpecialOffers> {
   }
 
   Future<void> loadCategories() async {
-    print(4);
     dynamic response = await categorieService.getCategories();
-    //print(response);
     setState(() {
       categories = List<Map<String, dynamic>>.from(response);
     });
   }
 
+  Future<int> loadCount(category_id) async {
+    var responseCount = await categorieService.getcount(category_id);
+    return responseCount;
+  }
+
+  @override
   Widget build(BuildContext context) {
     SizeConfig().init(context);
     return Column(
@@ -50,29 +52,31 @@ class _SpecialOffersState extends State<SpecialOffers> {
         SingleChildScrollView(
           scrollDirection: Axis.horizontal,
           child: Row(
-            children: [
-              ...List.generate(
-                categories.length,
-                (index) {
-                  Map<String, dynamic> category = categories[index];
-                  return SpecialOfferCard(
-                    image: baseImageUrl +
-                        '/categories/' +
-                        category['background_image'],
-                    category: category['label'],
-                    numOfBrands: 18,
-                    press: () => Navigator.pushNamed(
-                      context,
-                      ProByCategory.routeName,
-                      arguments: {
-                        'category': category,
-                        'user_id': widget.user_id,
-                      },
-                    ),
-                  );
+            children: categories.map((category) {
+              return FutureBuilder<int>(
+                future: loadCount(category['id']),
+                builder: (BuildContext context, AsyncSnapshot<int> snapshot) {
+                  if (snapshot.connectionState == ConnectionState.waiting) {
+                    return CircularProgressIndicator(); // Or a loading indicator
+                  } else if (snapshot.hasError) {
+                    return Text('Error: ${snapshot.error}');
+                  } else {
+                    return SpecialOfferCard(
+                      image: baseImageUrl +
+                          '/categories/' +
+                          category['background_image'],
+                      category: category['label'],
+                      numOfBrands: snapshot.data!,
+                      press: () => Navigator.pushNamed(
+                        context,
+                        ProByCategory.routeName,
+                        arguments: {'category': category},
+                      ),
+                    );
+                  }
                 },
-              ),
-            ],
+              );
+            }).toList(),
           ),
         ),
       ],
@@ -80,7 +84,7 @@ class _SpecialOffersState extends State<SpecialOffers> {
   }
 }
 
-class SpecialOfferCard extends StatefulWidget {
+class SpecialOfferCard extends StatelessWidget {
   const SpecialOfferCard({
     Key? key,
     required this.category,
@@ -91,19 +95,14 @@ class SpecialOfferCard extends StatefulWidget {
 
   final String category, image;
   final int numOfBrands;
-  final GestureTapCallback press;
+  final VoidCallback press;
 
-  @override
-  _SpecialOfferCardState createState() => _SpecialOfferCardState();
-}
-
-class _SpecialOfferCardState extends State<SpecialOfferCard> {
   @override
   Widget build(BuildContext context) {
     return Padding(
       padding: EdgeInsets.only(left: getProportionateScreenWidth(20)),
       child: GestureDetector(
-        onTap: widget.press,
+        onTap: press,
         child: SizedBox(
           width: getProportionateScreenWidth(242),
           height: getProportionateScreenWidth(200),
@@ -112,7 +111,7 @@ class _SpecialOfferCardState extends State<SpecialOfferCard> {
             child: Stack(
               children: [
                 Image.network(
-                  widget.image,
+                  image,
                   width: double.infinity,
                   height: double.infinity,
                   fit: BoxFit.cover,
@@ -139,13 +138,13 @@ class _SpecialOfferCardState extends State<SpecialOfferCard> {
                       style: TextStyle(color: Colors.white),
                       children: [
                         TextSpan(
-                          text: "${widget.category}\n",
+                          text: "$category\n",
                           style: TextStyle(
                             fontSize: getProportionateScreenWidth(18),
                             fontWeight: FontWeight.bold,
                           ),
                         ),
-                        TextSpan(text: "${widget.numOfBrands} Articles")
+                        TextSpan(text: "$numOfBrands Articles")
                       ],
                     ),
                   ),

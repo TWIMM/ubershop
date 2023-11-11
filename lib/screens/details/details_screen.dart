@@ -13,7 +13,6 @@ class DetailsScreen extends StatelessWidget {
         ModalRoute.of(context)!.settings.arguments as Map<String, dynamic>;
 
     final ProductDetailsArguments agrs = payload['product'];
-    final user_id = payload['user_id'];
 
     //print('user_id: $user_id');
 
@@ -23,7 +22,7 @@ class DetailsScreen extends StatelessWidget {
         preferredSize: Size.fromHeight(AppBar().preferredSize.height),
         child: CustomAppBar(rating: agrs.product.rating),
       ),
-      body: Body(product: agrs.product, user_id: user_id),
+      body: Body(product: agrs.product),
     );
   }
 }

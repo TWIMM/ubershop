@@ -15,7 +15,6 @@ class CarouselCard extends StatefulWidget {
   final double cardWidth;
   final BorderRadius borderRadius;
   final Product? item;
-  final int? user_id;
 
   final bool isActivated;
 
@@ -25,7 +24,6 @@ class CarouselCard extends StatefulWidget {
     required this.title,
     this.height = 0,
     this.item,
-    this.user_id,
     this.cardWidth = 0,
     this.isActivated = false,
     required this.borderRadius,
@@ -85,7 +83,6 @@ class _CarouselCardState extends State<CarouselCard> {
                     DetailsScreen.routeName,
                     arguments: {
                       'product': ProductDetailsArguments(product: widget.item!),
-                      'user_id': widget.user_id
                     },
                   ),
                   child: CustomCard(

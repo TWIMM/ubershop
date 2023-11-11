@@ -8,10 +8,9 @@ class HomeScreen extends StatelessWidget {
   static String routeName = "/home";
   @override
   Widget build(BuildContext context) {
-    final int user_id = ModalRoute.of(context)?.settings.arguments as int;
     SizeConfig().init(context);
     return Scaffold(
-      body: Body(user_id: user_id),
+      body: Body(),
       bottomNavigationBar: CustomBottomNavBar(selectedMenu: MenuState.home),
     );
   }

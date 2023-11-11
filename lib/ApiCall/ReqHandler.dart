@@ -90,6 +90,16 @@ class CategorieService {
     return reqRes['data'];
   }
 
+  Future getproducts() async {
+    final data = {};
+
+    final response =
+        await RequestService.postLikeGet(ApiEndpoints.getproduct, data);
+    final reqRes = response;
+    // print('gett');
+    return reqRes['products'];
+  }
+
   Future addToCart(product_id, user_id) async {
     final data = {'user_id': user_id, 'product_id': product_id};
 
@@ -108,5 +118,25 @@ class CategorieService {
     final reqRes = response;
     //print('gett');
     return reqRes['cart'];
+  }
+
+  Future getProductFromId(product_id) async {
+    final data = {'product_id': product_id};
+
+    final response =
+        await RequestService.postLikeGet(ApiEndpoints.getspecificproduct, data);
+    final reqRes = response;
+    //print('gett');
+    return reqRes;
+  }
+
+  Future getcount(category_id) async {
+    final data = {'category_id': category_id};
+
+    final response =
+        await RequestService.postLikeGet(ApiEndpoints.getcount, data);
+    final reqRes = response;
+    //print('gett');
+    return reqRes['count'];
   }
 }

@@ -10,10 +10,8 @@ import 'package:geolocator/geolocator.dart';
 import 'package:geocode/geocode.dart';
 
 class Body extends StatefulWidget {
-  final user_id;
   const Body({
     Key? key,
-    required this.user_id,
   }) : super(key: key);
   @override
   State<Body> createState() => _BodyState();
@@ -72,11 +70,11 @@ class _BodyState extends State<Body> {
         child: Column(
           children: [
             SizedBox(height: getProportionateScreenHeight(20)),
-            HomeHeader(user_id: widget.user_id),
+            HomeHeader(),
             SizedBox(height: getProportionateScreenWidth(10)),
             DiscountBanner(address: _currentAddress),
             SizedBox(height: getProportionateScreenWidth(10)),
-            SpecialOffers(user_id: widget.user_id),
+            SpecialOffers(),
             SizedBox(height: getProportionateScreenWidth(30)),
             PopularProducts(),
             SizedBox(height: getProportionateScreenWidth(30)),

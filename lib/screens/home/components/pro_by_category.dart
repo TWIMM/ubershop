@@ -7,11 +7,9 @@ import 'package:uber/screens/details/details_screen.dart';
 
 class ProByCategory extends StatefulWidget {
   static String routeName = "/pro_by_category";
-  int? user_id;
 
   ProByCategory({
     Key? key,
-    this.user_id,
   }) : super(key: key);
 
   @override
@@ -30,8 +28,6 @@ class _ProByCategoryState extends State<ProByCategory> {
     final Map<String, dynamic> args =
         ModalRoute.of(context)!.settings.arguments as Map<String, dynamic>;
     category = args['category'];
-    widget.user_id = args['user_id'];
-    print(args['user_id']);
     loadCategories();
   }
 
@@ -129,7 +125,6 @@ class _ProByCategoryState extends State<ProByCategory> {
                   children: [
                     CarouselCard(
                       item: item,
-                      user_id: widget.user_id,
                       cardWidth: 270,
                       height: 600,
                       imagePath: item.images[0],

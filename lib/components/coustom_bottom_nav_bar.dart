@@ -8,7 +8,7 @@ import '../constants.dart';
 import '../enums.dart';
 
 class CustomBottomNavBar extends StatelessWidget {
-  const CustomBottomNavBar({
+  CustomBottomNavBar({
     Key? key,
     required this.selectedMenu,
   }) : super(key: key);
@@ -46,8 +46,10 @@ class CustomBottomNavBar extends StatelessWidget {
                       ? kPrimaryColor
                       : inActiveIconColor,
                 ),
-                onPressed: () =>
-                    Navigator.pushNamed(context, HomeScreen.routeName),
+                onPressed: () => Navigator.pushNamed(
+                  context,
+                  HomeScreen.routeName,
+                ),
               ),
               IconButton(
                 icon: SvgPicture.asset(
@@ -56,8 +58,10 @@ class CustomBottomNavBar extends StatelessWidget {
                       ? kPrimaryColor
                       : inActiveIconColor,
                 ),
-                onPressed: () =>
-                    Navigator.pushNamed(context, LikedProducts.routeName),
+                onPressed: () => Navigator.pushNamed(
+                  context,
+                  LikedProducts.routeName,
+                ),
               ),
               IconButton(
                 icon: SvgPicture.asset(
@@ -66,8 +70,10 @@ class CustomBottomNavBar extends StatelessWidget {
                       ? kPrimaryColor
                       : inActiveIconColor,
                 ),
-                onPressed: () =>
-                    Navigator.pushNamed(context, Trackingnumber.routeName),
+                onPressed: () => Navigator.pushNamed(
+                  context,
+                  Trackingnumber.routeName,
+                ),
               ),
               IconButton(
                 icon: SvgPicture.asset(
@@ -76,8 +82,10 @@ class CustomBottomNavBar extends StatelessWidget {
                       ? kPrimaryColor
                       : inActiveIconColor,
                 ),
-                onPressed: () =>
-                    Navigator.pushNamed(context, ProfileScreen.routeName),
+                onPressed: () => Navigator.pushNamed(
+                  context,
+                  ProfileScreen.routeName,
+                ),
               ),
             ],
           )),

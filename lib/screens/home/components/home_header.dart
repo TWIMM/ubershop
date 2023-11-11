@@ -6,10 +6,8 @@ import 'icon_btn_with_counter.dart';
 import 'search_field.dart';
 
 class HomeHeader extends StatelessWidget {
-  final user_id;
   const HomeHeader({
     Key? key,
-    required this.user_id,
   }) : super(key: key);
 
   @override
@@ -23,8 +21,10 @@ class HomeHeader extends StatelessWidget {
           SearchField(),
           IconBtnWithCounter(
             svgSrc: "assets/icons/Cart Icon.svg",
-            press: () => Navigator.pushNamed(context, CartScreen.routeName,
-                arguments: user_id),
+            press: () => Navigator.pushNamed(
+              context,
+              CartScreen.routeName,
+            ),
           ),
           IconBtnWithCounter(
             svgSrc: "assets/icons/Bell.svg",
