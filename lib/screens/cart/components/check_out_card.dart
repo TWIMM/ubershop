@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:uber/components/default_button.dart';
+import 'package:uber/screens/home/home_screen.dart';
 import 'package:uber/ApiCall/ReqHandler.dart';
 import '../../../constants.dart';
 import '../../../size_config.dart';
@@ -53,6 +54,8 @@ class _CheckoutCardState extends State<CheckoutCard> {
   Future<void> createorder(totalamount) async {
     var response =
         await categorieService.createorder(widget.user_id, totalamount, cart);
+
+    Navigator.pushNamed(context, HomeScreen.routeName);
   }
 
   @override

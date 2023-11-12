@@ -59,7 +59,8 @@ class _SpecialOffersState extends State<SpecialOffers> {
                   if (snapshot.connectionState == ConnectionState.waiting) {
                     return CircularProgressIndicator(); // Or a loading indicator
                   } else if (snapshot.hasError) {
-                    return Text('Error: ${snapshot.error}');
+                    loadCategories();
+                    return CircularProgressIndicator();
                   } else {
                     return SpecialOfferCard(
                       image: baseImageUrl +
