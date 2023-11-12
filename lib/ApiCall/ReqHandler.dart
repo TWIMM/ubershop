@@ -120,6 +120,16 @@ class CategorieService {
     return reqRes['cart'];
   }
 
+  Future getCartTotal(user_id) async {
+    final data = {'user_id': user_id};
+
+    final response =
+        await RequestService.postLikeGet(ApiEndpoints.getcart, data);
+    final reqRes = response;
+    //print('gett');
+    return reqRes['total'];
+  }
+
   Future getProductFromId(product_id) async {
     final data = {'product_id': product_id};
 
@@ -138,5 +148,39 @@ class CategorieService {
     final reqRes = response;
     //print('gett');
     return reqRes['count'];
+  }
+
+  Future deleteCartItem(cart_id) async {
+    final data = {'cart_id': cart_id};
+
+    final response =
+        await RequestService.postLikeGet(ApiEndpoints.deletecart, data);
+    final reqRes = response;
+    //print('gett');
+    return reqRes['error'];
+  }
+
+  Future logout(user_id) async {
+    final data = {'user_id': user_id};
+
+    final response =
+        await RequestService.postLikeGet(ApiEndpoints.logout, data);
+    final reqRes = response;
+    //print('gett');
+    return reqRes['error'];
+  }
+
+  Future changePawd(user_id, new_passsword, confirm_password) async {
+    final data = {
+      'user_id': user_id,
+      'new_password': new_passsword,
+      'confirm_password': confirm_password
+    };
+
+    final response =
+        await RequestService.postLikeGet(ApiEndpoints.changepwd, data);
+    final reqRes = response;
+    //print('gett');
+    return reqRes['error'];
   }
 }

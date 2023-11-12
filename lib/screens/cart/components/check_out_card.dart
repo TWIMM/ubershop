@@ -5,15 +5,50 @@ import 'package:uber/ApiCall/ReqHandler.dart';
 import '../../../constants.dart';
 import '../../../size_config.dart';
 
-class CheckoutCard extends StatelessWidget {
-  final user_id;
-  final product_id;
+class CheckoutCard extends StatefulWidget {
+  final int user_id;
+  // final int product_id;
 
   CheckoutCard({
     Key? key,
-    this.user_id,
-    this.product_id,
+    required this.user_id,
+    // required this.product_id,
   }) : super(key: key);
+
+  @override
+  _CheckoutCardState createState() => _CheckoutCardState();
+}
+
+class _CheckoutCardState extends State<CheckoutCard> {
+  List cart = [];
+  List _productInfo = [];
+  String totalCartPrice = '';
+  final CategorieService categorieService = CategorieService();
+
+  @override
+  void initState() {
+    super.initState();
+    loadCarts();
+    getCartTotal();
+  }
+
+  Future<void> loadCarts() async {
+    List response = await categorieService.getCart(widget.user_id);
+    setState(() {
+      cart = response;
+    });
+
+    //print(cart);
+  }
+
+  Future<void> getCartTotal() async {
+    var response = await categorieService.getCartTotal(widget.user_id);
+    setState(() {
+      totalCartPrice = response;
+    });
+
+    print(totalCartPrice);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -34,7 +69,7 @@ class CheckoutCard extends StatelessWidget {
             offset: Offset(0, -15),
             blurRadius: 20,
             color: Color(0xFFDADADA).withOpacity(0.15),
-          )
+          ),
         ],
       ),
       child: SafeArea(
@@ -66,7 +101,7 @@ class CheckoutCard extends StatelessWidget {
                     text: "Total:\n",
                     children: [
                       TextSpan(
-                        text: "\€ 337.15",
+                        text: "\€ $totalCartPrice",
                         style: TextStyle(fontSize: 16, color: Colors.black),
                       ),
                     ],

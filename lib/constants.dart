@@ -70,6 +70,9 @@ class ApiEndpoints {
   static const getproductbycategory = '/produits/getproductbycategory';
   static const getspecificproduct = '/produits/getbyid';
 
+  static const changepwd = '/auth/changepwd';
+  static const logout = '/auth/logout';
+
   static const baseUrl = 'https://ottawa-canada.net/public/api';
 }
 

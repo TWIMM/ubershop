@@ -5,6 +5,8 @@ import 'package:uber/components/form_error.dart';
 import 'package:uber/screens/sign_in/sign_in_screen.dart';
 import 'package:uber/ApiCall/ReqHandler.dart';
 import '../../../constants.dart';
+import 'package:provider/provider.dart';
+import '../../../UseridProvider.dart';
 import '../../../size_config.dart';
 
 class SignUpForm extends StatefulWidget {
@@ -15,11 +17,13 @@ class SignUpForm extends StatefulWidget {
 class _SignUpFormState extends State<SignUpForm> {
   final _formKey = GlobalKey<FormState>();
   final AuthService authService = AuthService();
+  final CategorieService categorieService = CategorieService();
   String? email;
   String? password;
   String? conform_password;
   bool remember = false;
   final List<String?> errors = [];
+  bool result = true;
 
   void addError({String? error}) {
     if (!errors.contains(error))
@@ -35,8 +39,23 @@ class _SignUpFormState extends State<SignUpForm> {
       });
   }
 
+  Future<void> changePwd(user_id) async {
+    bool response =
+        await categorieService.changePawd(user_id, password, conform_password);
+
+    if (response == true) {
+      addError(error: incorrectData);
+    } else {
+      Navigator.pushNamed(context, SignInScreen.routeName);
+    }
+    //print(cart);
+  }
+
   @override
   Widget build(BuildContext context) {
+    var userProvider = Provider.of<UserProvider>(context);
+
+    int user_id = userProvider.user_id;
     return Form(
       key: _formKey,
       child: Column(
@@ -52,15 +71,8 @@ class _SignUpFormState extends State<SignUpForm> {
               if (_formKey.currentState!.validate()) {
                 _formKey.currentState!.save();
                 // if all are valid then go to success screen
-                Navigator.pushNamed(context, SignInScreen.routeName);
-                /* // bool response = await authService.register(email!, password!);
-                print(response);
-                if (response == false) {
-                  addError(error: incorrectData);
-                } else {
-                  // Navigator.pushNamed(context, LoginSuccessScreen.routeName);
-                  removeError(error: incorrectAccess);
-                } */
+
+                changePwd(user_id);
               }
             },
           ),

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:uber/models/Cart.dart';
+import 'package:uber/screens/home/home_screen.dart';
 import 'package:uber/ApiCall/ReqHandler.dart';
 import '../../../size_config.dart';
 import 'cart_card.dart';
@@ -18,6 +18,7 @@ class Body extends StatefulWidget {
 class _BodyState extends State<Body> {
   final CategorieService categorieService = CategorieService();
   List cart = []; // Update the type to List<Cart>
+  bool responseBool = true;
 
   @override
   void initState() {
@@ -31,6 +32,15 @@ class _BodyState extends State<Body> {
 
     setState(() {
       cart = response;
+    });
+  }
+
+  Future<void> deleteCartItem(cartItem_id) async {
+    bool response = await categorieService.deleteCartItem(cartItem_id);
+    //print(response);
+
+    setState(() {
+      responseBool = response;
     });
   }
 
@@ -51,6 +61,8 @@ class _BodyState extends State<Body> {
                   setState(() {
                     cart.removeAt(index);
                   });
+
+                  deleteCartItem(cartItem['id']);
                 },
                 background: Container(
                   padding: EdgeInsets.symmetric(horizontal: 20),
