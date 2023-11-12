@@ -12,7 +12,7 @@ class ProductCard extends StatelessWidget {
     this.height = 200,
     this.width = 140,
     this.aspectRetio = 1.02,
-    this.left = 1,
+    this.left = 20,
     required this.product,
   }) : super(key: key);
 
