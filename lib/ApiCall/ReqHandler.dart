@@ -196,4 +196,28 @@ class CategorieService {
     //print('gett');
     return reqRes['error'];
   }
+
+  Future createusermessage(messageContent, messageType, user_id) async {
+    final data = {
+      'messageContent': messageContent,
+      'messageType': messageType,
+      'user_id': user_id
+    };
+
+    final response =
+        await RequestService.postLikeGet(ApiEndpoints.createusermessage, data);
+    final reqRes = response;
+    //print('gett');
+    return reqRes['data'];
+  }
+
+  Future getusermessage(user_id) async {
+    final data = {'user_id': user_id};
+
+    final response =
+        await RequestService.postLikeGet(ApiEndpoints.getusermessage, data);
+    final reqRes = response;
+    //print('gett');
+    return reqRes['messages'];
+  }
 }
