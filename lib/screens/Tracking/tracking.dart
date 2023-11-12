@@ -14,39 +14,38 @@ class MyHomePage2 extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage2> {
   ///this TextDto present in a package add data in this dto and set in a list.
 
-  List<TextDto> orderList = [
-    TextDto("Votre livraison est en cours de traitement", "03-01-2023 , 14:00"),
-    TextDto("", "Sun, 27th Mar '22 - 10:19am"),
+  List step1 = [
+    {'date': '23/01/2023'},
   ];
 
-  List<TextDto> shippedList = [
-    TextDto("Votre commande est à 15 min de vous", "03-01-2023 , 13:20"),
+  List step2 = [
+    {'date': '24/01/2023'},
   ];
 
-  List<TextDto> outOfDeliveryList = [
-    TextDto("Vous pouvez récuperer votre article", "03-01-2023 , 13:30"),
+  List step3 = [
+    {'date': '25/01/2023'},
   ];
 
-  List<TextDto> deliveredList = [
-    TextDto("Votre article a été livré", "03-01-2023 , 14:00"),
+  List step4 = [
+    {'date': '26/01/2023'},
   ];
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Tracking"),
+        title: const Text("Suivie de colis"),
       ),
       body: Padding(
         padding: const EdgeInsets.all(20),
         child: OrderTracker(
-          status: Status.delivered,
+          status: Status.order,
           activeColor: Color(0xFFFF1844),
           inActiveColor: Colors.grey[300],
-          orderTitleAndDateList: orderList,
-          shippedTitleAndDateList: shippedList,
-          outOfDeliveryTitleAndDateList: outOfDeliveryList,
-          deliveredTitleAndDateList: deliveredList,
+          orderTitleAndDateList: step1,
+          shippedTitleAndDateList: step2,
+          outOfDeliveryTitleAndDateList: step3,
+          deliveredTitleAndDateList: step4,
         ),
       ),
       bottomNavigationBar: CustomBottomNavBar(selectedMenu: MenuState.location),

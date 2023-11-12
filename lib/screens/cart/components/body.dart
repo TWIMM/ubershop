@@ -39,9 +39,13 @@ class _BodyState extends State<Body> {
     bool response = await categorieService.deleteCartItem(cartItem_id);
     //print(response);
 
-    setState(() {
-      responseBool = response;
-    });
+    if (response == false) {
+      Navigator.pushNamed(
+        context,
+        HomeScreen.routeName,
+        arguments: '',
+      );
+    }
   }
 
   Widget build(BuildContext context) {

@@ -8,16 +8,16 @@ class OrderTracker extends StatefulWidget {
   final Status? status;
 
   /// This variable is used to get list of order sub title and date to show present status of product.
-  final List<TextDto>? orderTitleAndDateList;
+  final List? orderTitleAndDateList;
 
   /// This variable is used to get list of shipped sub title and date to show present status of product.
-  final List<TextDto>? shippedTitleAndDateList;
+  final List? shippedTitleAndDateList;
 
   /// This variable is used to get list of outOfDelivery sub title and date to show present status of product.
-  final List<TextDto>? outOfDeliveryTitleAndDateList;
+  final List? outOfDeliveryTitleAndDateList;
 
   /// This variable is used to get list of delivered sub title and date to show present status of product.
-  final List<TextDto>? deliveredTitleAndDateList;
+  final List? deliveredTitleAndDateList;
 
   /// This variable is used to change color of active animation border.
   final Color? activeColor;
@@ -187,15 +187,10 @@ class _OrderTrackerState extends State<OrderTracker>
                   TextSpan(
                     children: [
                       TextSpan(
-                          text: "Démarrée ",
+                          text: "Commande enregistrée ",
                           style: widget.headingTitleStyle ??
                               const TextStyle(
                                   fontSize: 16, fontWeight: FontWeight.bold)),
-                      TextSpan(
-                        text: "Fri, 25th Mar '22",
-                        style: widget.headingDateTextStyle ??
-                            const TextStyle(fontSize: 16, color: Colors.grey),
-                      ),
                     ],
                   ),
                 ),
@@ -234,19 +229,16 @@ class _OrderTrackerState extends State<OrderTracker>
                           mainAxisAlignment: MainAxisAlignment.start,
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text(
-                              widget.orderTitleAndDateList?[index].title ?? "",
-                              style: widget.subTitleTextStyle ??
-                                  const TextStyle(fontSize: 14),
-                            ),
                             const SizedBox(
                               height: 4,
                             ),
                             Text(
-                              widget.orderTitleAndDateList?[index].date ?? "",
+                              widget.orderTitleAndDateList?[index]['date'] ??
+                                  "",
                               style: widget.subDateTextStyle ??
                                   TextStyle(
-                                      fontSize: 14, color: Colors.grey[300]),
+                                      fontSize: 16,
+                                      color: Color.fromARGB(255, 42, 42, 42)),
                             )
                           ],
                         );
@@ -296,11 +288,6 @@ class _OrderTrackerState extends State<OrderTracker>
                           style: widget.headingTitleStyle ??
                               const TextStyle(
                                   fontSize: 16, fontWeight: FontWeight.bold)),
-                      TextSpan(
-                        text: "Fri, 28th Mar '22",
-                        style: widget.headingDateTextStyle ??
-                            const TextStyle(fontSize: 16, color: Colors.grey),
-                      ),
                     ],
                   ),
                 ),
@@ -342,19 +329,13 @@ class _OrderTrackerState extends State<OrderTracker>
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
-                              widget.shippedTitleAndDateList?[index].title ??
+                              widget.shippedTitleAndDateList?[index]['date'] ??
                                   "",
-                              style: widget.subTitleTextStyle ??
-                                  const TextStyle(fontSize: 14),
-                            ),
-                            const SizedBox(
-                              height: 4,
-                            ),
-                            Text(
-                              widget.shippedTitleAndDateList?[index].date ?? "",
                               style: widget.subDateTextStyle ??
                                   TextStyle(
-                                      fontSize: 14, color: Colors.grey[300]),
+                                      fontSize: 16,
+                                      color: const Color.fromARGB(
+                                          255, 44, 44, 44)),
                             )
                           ],
                         );
@@ -403,11 +384,6 @@ class _OrderTrackerState extends State<OrderTracker>
                           style: widget.headingTitleStyle ??
                               const TextStyle(
                                   fontSize: 16, fontWeight: FontWeight.bold)),
-                      TextSpan(
-                        text: "Fri, 29th Mar '22",
-                        style: widget.headingDateTextStyle ??
-                            const TextStyle(fontSize: 16, color: Colors.grey),
-                      ),
                     ],
                   ),
                 ),
@@ -450,21 +426,13 @@ class _OrderTrackerState extends State<OrderTracker>
                           children: [
                             Text(
                               widget.outOfDeliveryTitleAndDateList?[index]
-                                      .title ??
-                                  "",
-                              style: widget.subTitleTextStyle ??
-                                  const TextStyle(fontSize: 14),
-                            ),
-                            const SizedBox(
-                              height: 4,
-                            ),
-                            Text(
-                              widget.outOfDeliveryTitleAndDateList?[index]
-                                      .date ??
+                                      ['date'] ??
                                   "",
                               style: widget.subDateTextStyle ??
                                   TextStyle(
-                                      fontSize: 14, color: Colors.grey[300]),
+                                      fontSize: 16,
+                                      color: const Color.fromARGB(
+                                          255, 30, 30, 30)),
                             )
                           ],
                         );
@@ -504,15 +472,10 @@ class _OrderTrackerState extends State<OrderTracker>
                   TextSpan(
                     children: [
                       TextSpan(
-                          text: "Article livré ",
+                          text: "Livraison éffectuée",
                           style: widget.headingTitleStyle ??
                               const TextStyle(
                                   fontSize: 16, fontWeight: FontWeight.bold)),
-                      TextSpan(
-                        text: "Fri, 31th Mar '22",
-                        style: widget.headingDateTextStyle ??
-                            const TextStyle(fontSize: 16, color: Colors.grey),
-                      ),
                     ],
                   ),
                 ),
@@ -527,17 +490,11 @@ class _OrderTrackerState extends State<OrderTracker>
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        widget.deliveredTitleAndDateList?[index].title ?? "",
-                        style: widget.subTitleTextStyle ??
-                            const TextStyle(fontSize: 14),
-                      ),
-                      const SizedBox(
-                        height: 4,
-                      ),
-                      Text(
-                        widget.deliveredTitleAndDateList?[index].date ?? "",
+                        widget.deliveredTitleAndDateList?[index]['date'] ?? "",
                         style: widget.subDateTextStyle ??
-                            TextStyle(fontSize: 14, color: Colors.grey[300]),
+                            TextStyle(
+                                fontSize: 16,
+                                color: const Color.fromARGB(255, 29, 29, 29)),
                       )
                     ],
                   );

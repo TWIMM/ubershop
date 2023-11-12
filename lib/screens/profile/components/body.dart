@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:uber/screens/changePassword/changepwd.dart';
 import 'package:uber/screens/sign_in/sign_in_screen.dart';
 import 'profile_menu.dart';
+import 'package:flutter/services.dart';
+import 'package:flutter/services.dart';
 import 'profile_pic.dart';
 import 'package:provider/provider.dart';
 import '../../../UseridProvider.dart';
@@ -15,10 +17,11 @@ class Body extends StatelessWidget {
     bool response = await categorieService.logout(user_id);
 
     if (response == false) {
-      Navigator.pushNamed(
+      /*  Navigator.pushNamed(
         context,
         SignInScreen.routeName,
-      );
+      ); */
+      SystemChannels.platform.invokeMethod('SystemNavigator.pop');
     }
     //print(cart);
   }
