@@ -170,6 +170,19 @@ class CategorieService {
     return reqRes['error'];
   }
 
+  Future createorder(user_id, total_amount, cart) async {
+    final data = {
+      'user_id': user_id,
+      'total_amount': total_amount,
+      'cart': cart
+    };
+
+    final response =
+        await RequestService.postLikeGet(ApiEndpoints.createorder, data);
+    final reqRes = response;
+    return reqRes['error'];
+  }
+
   Future changePawd(user_id, new_passsword, confirm_password) async {
     final data = {
       'user_id': user_id,

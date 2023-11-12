@@ -50,6 +50,11 @@ class _CheckoutCardState extends State<CheckoutCard> {
     print(totalCartPrice);
   }
 
+  Future<void> createorder(totalamount) async {
+    var response =
+        await categorieService.createorder(widget.user_id, totalamount, cart);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -111,7 +116,9 @@ class _CheckoutCardState extends State<CheckoutCard> {
                   width: getProportionateScreenWidth(190),
                   child: DefaultButton(
                     text: "Valider mon panier",
-                    press: () {},
+                    press: () {
+                      createorder(totalCartPrice);
+                    },
                   ),
                 ),
               ],

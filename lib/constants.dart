@@ -72,6 +72,7 @@ class ApiEndpoints {
 
   static const changepwd = '/auth/changepwd';
   static const logout = '/auth/logout';
+  static const createorder = '/order/create';
 
   static const baseUrl = 'https://ottawa-canada.net/public/api';
 }
