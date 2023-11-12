@@ -25,7 +25,7 @@ class CarouselCard extends StatefulWidget {
     this.height = 0,
     this.item,
     this.cardWidth = 0,
-    this.isActivated = false,
+    this.isActivated = true,
     required this.borderRadius,
   }) : super(key: key);
 
@@ -34,7 +34,7 @@ class CarouselCard extends StatefulWidget {
 }
 
 class _CarouselCardState extends State<CarouselCard> {
-  bool isActivated = false;
+  bool isActivated = true;
 
   @override
   Widget build(BuildContext context) {
@@ -81,9 +81,7 @@ class _CarouselCardState extends State<CarouselCard> {
                   onTap: () => Navigator.pushNamed(
                     context,
                     DetailsScreen.routeName,
-                    arguments: {
-                      'product': ProductDetailsArguments(product: widget.item!),
-                    },
+                    arguments: ProductDetailsArguments(product: widget.item!),
                   ),
                   child: CustomCard(
                     childWidget: Row(
@@ -111,13 +109,13 @@ class _CarouselCardState extends State<CarouselCard> {
                   height: 28,
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(100),
-                    color: isActivated == true
+                    color: isActivated
                         ? const Color.fromARGB(255, 249, 188, 184)
                         : Color.fromARGB(118, 187, 187, 187),
                   ),
                   child: Icon(
                     Icons.favorite,
-                    color: isActivated == true ? Colors.red : Colors.white,
+                    color: isActivated ? Colors.red : Colors.white,
                     size: 14,
                   ),
                 ),

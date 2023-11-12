@@ -3,24 +3,86 @@ import 'Carousel_card.dart';
 import 'package:uber/models/Product.dart';
 import 'package:uber/enums.dart';
 import 'package:uber/components/coustom_bottom_nav_bar.dart';
+import 'package:uber/ApiCall/ReqHandler.dart';
 import 'package:uber/screens/details/details_screen.dart';
 import 'categories.dart';
 
-class LikedProducts extends StatelessWidget {
+class LikedProducts extends StatefulWidget {
   static String routeName = "/liked_produit";
 
-  const LikedProducts({
-    Key? key,
-  }) : super(key: key);
+  const LikedProducts({Key? key}) : super(key: key);
+
+  @override
+  _LikedProductsState createState() => _LikedProductsState();
+}
+
+class _LikedProductsState extends State<LikedProducts> {
+  final CategorieService categorieService = CategorieService();
+  List<Product> allProducts = [];
+
+  @override
+  void initState() {
+    super.initState();
+    fetchAllProducts();
+  }
+
+  Future<void> fetchAllProducts() async {
+    var response = await categorieService.getproducts();
+    setState(() {
+      allProducts = List<Product>.from(response.map((productMap) {
+        return Product(
+          id: productMap["id"] as int,
+          images: List<String>.from(productMap["images_names"]),
+          colors: productMap["availaible_colors"].map((hexString) {
+            int colorInt = int.parse(hexString.substring(2), radix: 16);
+            return Color(colorInt);
+          }).toList(),
+          title: productMap["label"],
+          price: productMap["price"],
+          description: productMap["description"],
+          rating: 4.1,
+          isFavourite: true,
+          isPopular: true,
+        );
+      }));
+    });
+  }
+
+  Widget _buildContent(String title, double height) {
+    return Container(
+      height: height * 0.35,
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              Text(title),
+              SizedBox(width: 20),
+              Container(
+                width: 12,
+                height: 12,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(100),
+                  color: Colors.green,
+                ),
+                child: Icon(
+                  Icons.check,
+                  color: Colors.white,
+                  size: 10,
+                ),
+              ),
+            ],
+          ),
+          // Other content you want to display
+        ],
+      ),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
-    // Create a list of favorite products by filtering demoProducts.
-    final favoriteProducts =
-        demoProducts.where((product) => product.isFavourite == true).toList();
-    double screenHeight = MediaQuery.of(context).size.height;
-    double screenWidth = MediaQuery.of(context).size.width;
-
     return Scaffold(
       appBar: AppBar(
         title: Text("Vos produits préférés"),
@@ -75,24 +137,26 @@ class LikedProducts extends StatelessWidget {
       body: Center(
         child: Container(
           alignment: Alignment.center,
-          height: screenHeight,
-          width: screenWidth,
+          height: MediaQuery.of(context).size.height,
+          width: MediaQuery.of(context).size.width,
           child: SizedBox(
-            height: screenHeight * 0.8,
+            height: MediaQuery.of(context).size.height * 0.8,
             child: GridView.builder(
               gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
-                  maxCrossAxisExtent: 300,
-                  mainAxisExtent: 200,
-                  childAspectRatio: 1,
-                  crossAxisSpacing: 20,
-                  mainAxisSpacing: 40),
-              itemCount: favoriteProducts.length,
+                maxCrossAxisExtent: 300,
+                mainAxisExtent: 200,
+                childAspectRatio: 1,
+                crossAxisSpacing: 20,
+                mainAxisSpacing: 40,
+              ),
+              itemCount: allProducts.length,
               itemBuilder: (_, int index) {
-                final item = favoriteProducts[index];
+                final item = allProducts[index];
                 return Container(
-                    margin: const EdgeInsets.only(bottom: 10.0),
-                    height: 300,
-                    child: Column(children: [
+                  margin: const EdgeInsets.only(bottom: 10.0),
+                  height: 300,
+                  child: Column(
+                    children: [
                       CarouselCard(
                         item: item,
                         cardWidth: 270,
@@ -104,8 +168,10 @@ class LikedProducts extends StatelessWidget {
                       ),
                       Expanded(
                         child: _buildContent(item.title, 600),
-                      )
-                    ]));
+                      ),
+                    ],
+                  ),
+                );
               },
             ),
           ),
@@ -115,76 +181,4 @@ class LikedProducts extends StatelessWidget {
           CustomBottomNavBar(selectedMenu: MenuState.favourite),
     );
   }
-}
-
-Widget _buildContent(
-  title,
-  height,
-) {
-  return Container(
-    height: height * 0.35,
-    child: Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      crossAxisAlignment: CrossAxisAlignment.center,
-      children: [
-        Row(
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: [
-            Text(title),
-            SizedBox(
-              width: 20,
-            ),
-            Container(
-              width: 12,
-              height: 12,
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(100),
-                color: Colors.green,
-              ),
-              child: Icon(
-                Icons.check,
-                color: Colors.white,
-                size: 10,
-              ),
-            ),
-          ],
-        ),
-        /*   Row(
-          children: [
-            Text("Livraison rapide"),
-            SizedBox(
-              width: 20,
-            ),
-            Row(
-              children: [
-                Icon(
-                  Icons.timer,
-                  size: 15,
-                  color: Colors.red,
-                ),
-                SizedBox(
-                  width: 5,
-                ),
-              ],
-            ),
-          ],
-        ), */
-
-        /*   Padding(
-            padding: const EdgeInsets.only(
-                right: 17.0, top: 17.0, left: 17.0, bottom: 17.0),
-            child: DefaultButton(
-              text: "Détail",
-              press: () {
-                Navigator.pushNamed(
-                  context,
-                  DetailsScreen.routeName,
-                  arguments: ProductDetailsArguments(product: widget.item!),
-                );
-              },
-            ),
-          ) */
-      ],
-    ),
-  );
 }

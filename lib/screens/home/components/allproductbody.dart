@@ -1,25 +1,89 @@
 import 'package:flutter/material.dart';
 import 'package:uber/components/product_card.dart';
 import 'package:uber/models/Product.dart';
+import 'package:uber/ApiCall/ReqHandler.dart';
 import 'Carousel_card.dart';
 import 'package:uber/screens/details/details_screen.dart';
 
-class AllProducts extends StatelessWidget {
+class AllProducts extends StatefulWidget {
   static String routeName = "/allproducts";
 
-  const AllProducts({
-    Key? key,
-  }) : super(key: key);
+  const AllProducts({Key? key}) : super(key: key);
+
+  @override
+  _AllProductsState createState() => _AllProductsState();
+}
+
+class _AllProductsState extends State<AllProducts> {
+  final CategorieService categorieService = CategorieService();
+  List<Product> convertedProducts = [];
+
+  @override
+  void initState() {
+    super.initState();
+    fetchPopularProducts();
+  }
+
+  Future<void> fetchPopularProducts() async {
+    var response = await categorieService.getproducts();
+    setState(() {
+      convertedProducts = List<Product>.from(response.map((productMap) {
+        return Product(
+          id: productMap["id"] as int,
+          images: List<String>.from(productMap["images_names"]),
+          colors: productMap["availaible_colors"].map((hexString) {
+            int colorInt = int.parse(hexString.substring(2), radix: 16);
+            return Color(colorInt);
+          }).toList(),
+          title: productMap["label"],
+          price: productMap["price"],
+          description: productMap["description"],
+          rating: 4.1,
+          isFavourite: true,
+          isPopular: true,
+        );
+      }));
+    });
+  }
+
+  Widget _buildContent(String title, double height) {
+    return Container(
+      height: height * 0.35,
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              Text(title),
+              SizedBox(width: 20),
+              Container(
+                width: 12,
+                height: 12,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(100),
+                  color: Colors.green,
+                ),
+                child: Icon(
+                  Icons.check,
+                  color: Colors.white,
+                  size: 10,
+                ),
+              ),
+            ],
+          ),
+          // Other content you want to display
+        ],
+      ),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
-    double screenWidth = MediaQuery.of(context).size.width;
-    double screenHeight = MediaQuery.of(context).size.height;
-    final favoriteProducts =
-        demoProducts.where((product) => product.isPopular == true).toList();
     return Scaffold(
       appBar: AppBar(
-        title: Text("Les plus vendus"),
+        title: Text("Nos produits"),
         actions: [
           Padding(
             padding: const EdgeInsets.only(
@@ -70,24 +134,26 @@ class AllProducts extends StatelessWidget {
       ),
       body: Container(
         alignment: Alignment.center,
-        height: screenHeight,
-        width: screenWidth,
+        height: MediaQuery.of(context).size.height,
+        width: MediaQuery.of(context).size.width,
         child: SizedBox(
-          height: screenHeight * 0.8,
+          height: MediaQuery.of(context).size.height * 0.8,
           child: GridView.builder(
             gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
-                maxCrossAxisExtent: 300,
-                mainAxisExtent: 200,
-                childAspectRatio: 1,
-                crossAxisSpacing: 20,
-                mainAxisSpacing: 40),
-            itemCount: favoriteProducts.length,
+              maxCrossAxisExtent: 300,
+              mainAxisExtent: 200,
+              childAspectRatio: 1,
+              crossAxisSpacing: 20,
+              mainAxisSpacing: 40,
+            ),
+            itemCount: convertedProducts.length,
             itemBuilder: (_, int index) {
-              final item = favoriteProducts[index];
+              final item = convertedProducts[index];
               return Container(
-                  margin: const EdgeInsets.only(bottom: 10.0),
-                  height: 300,
-                  child: Column(children: [
+                margin: const EdgeInsets.only(bottom: 10.0),
+                height: 300,
+                child: Column(
+                  children: [
                     CarouselCard(
                       item: item,
                       cardWidth: 270,
@@ -99,84 +165,14 @@ class AllProducts extends StatelessWidget {
                     ),
                     Expanded(
                       child: _buildContent(item.title, 600),
-                    )
-                  ]));
+                    ),
+                  ],
+                ),
+              );
             },
           ),
         ),
       ),
     );
   }
-}
-
-Widget _buildContent(
-  title,
-  height,
-) {
-  return Container(
-    height: height * 0.35,
-    child: Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      crossAxisAlignment: CrossAxisAlignment.center,
-      children: [
-        Row(
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: [
-            Text(title),
-            SizedBox(
-              width: 20,
-            ),
-            Container(
-              width: 12,
-              height: 12,
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(100),
-                color: Colors.green,
-              ),
-              child: Icon(
-                Icons.check,
-                color: Colors.white,
-                size: 10,
-              ),
-            ),
-          ],
-        ),
-        /*   Row(
-          children: [
-            Text("Livraison rapide"),
-            SizedBox(
-              width: 20,
-            ),
-            Row(
-              children: [
-                Icon(
-                  Icons.timer,
-                  size: 15,
-                  color: Colors.red,
-                ),
-                SizedBox(
-                  width: 5,
-                ),
-              ],
-            ),
-          ],
-        ), */
-
-        /*   Padding(
-            padding: const EdgeInsets.only(
-                right: 17.0, top: 17.0, left: 17.0, bottom: 17.0),
-            child: DefaultButton(
-              text: "Détail",
-              press: () {
-                Navigator.pushNamed(
-                  context,
-                  DetailsScreen.routeName,
-                  arguments: ProductDetailsArguments(product: widget.item!),
-                );
-              },
-            ),
-          ) */
-      ],
-    ),
-  );
 }

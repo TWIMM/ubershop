@@ -12,7 +12,7 @@ class ProductCard extends StatelessWidget {
     this.height = 200,
     this.width = 140,
     this.aspectRetio = 1.02,
-    this.left = 20,
+    this.left = 1,
     required this.product,
   }) : super(key: key);
 
@@ -47,7 +47,12 @@ class ProductCard extends StatelessWidget {
                   ),
                   child: Hero(
                     tag: product.id.toString(),
-                    child: Image.asset(product.images[0]),
+                    child: Image.network(
+                      baseImageUrl + '/produits/' + product.images[0],
+                      width: double.infinity,
+                      height: double.infinity,
+                      fit: BoxFit.cover,
+                    ),
                   ),
                 ),
               ),

@@ -9,10 +9,8 @@ class DetailsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final Map<String, dynamic> payload =
-        ModalRoute.of(context)!.settings.arguments as Map<String, dynamic>;
-
-    final ProductDetailsArguments agrs = payload['product'];
+    final ProductDetailsArguments agrs =
+        ModalRoute.of(context)!.settings.arguments as ProductDetailsArguments;
 
     //print('user_id: $user_id');
 
