@@ -1,97 +1,152 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:uber/UseridProvider.dart'; // Replace with the correct path
+import 'package:uber/components/coustom_bottom_nav_bar.dart';
+import 'package:uber/enums.dart';
 
-class ChatDetailPage extends StatelessWidget {
+class ChatDetailPageWrapper extends StatefulWidget {
   static String routeName = '/messenger';
 
   @override
+  _ChatDetailPageWrapperState createState() => _ChatDetailPageWrapperState();
+}
+
+class _ChatDetailPageWrapperState extends State<ChatDetailPageWrapper> {
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+
+    // Use a delay to ensure the initialization happens after the build cycle
+    Future.delayed(Duration.zero, () {
+      final userProvider = Provider.of<UserProvider>(context, listen: false);
+      userProvider.initializeChat();
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return ChatDetailPage();
+  }
+}
+
+class ChatDetailPage extends StatelessWidget {
+  @override
   Widget build(BuildContext context) {
     TextEditingController messageController = TextEditingController();
+
     return Consumer<UserProvider>(
       builder: (context, userProvider, _) {
         return Scaffold(
           appBar: AppBar(
-            title: Text("Service client"),
+            title: Text("Customer Service"),
+            leading: IconButton(
+              icon: Icon(Icons.arrow_back),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
           ),
-          body: Container(
-            child: Stack(
-              children: <Widget>[
-                ListView.builder(
+          body: Column(
+            children: <Widget>[
+              Expanded(
+                child: ListView.builder(
                   itemCount: userProvider.messages.length,
                   shrinkWrap: true,
-                  padding: EdgeInsets.only(top: 10, bottom: 10),
+                  padding: EdgeInsets.only(top: 10, bottom: 70),
                   itemBuilder: (context, index) {
-                    return Container(
-                      padding: EdgeInsets.only(
-                          left: 14, right: 14, top: 10, bottom: 10),
-                      child: Align(
-                        alignment: (userProvider.messages[index]
-                                    ['messageType'] ==
-                                "custumerclient"
-                            ? Alignment.topLeft
-                            : Alignment.topRight),
-                        child: Container(
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(20),
-                            color: (userProvider.messages[index]
-                                        ['messageType'] ==
-                                    "user"
-                                ? Colors.grey.shade200
-                                : Color.fromARGB(255, 248, 190, 222)),
-                          ),
-                          padding: EdgeInsets.all(16),
-                          child: Text(
-                            userProvider.messages[index]['messageContent'],
-                            style: TextStyle(fontSize: 15),
-                          ),
-                        ),
-                      ),
-                    );
-                  },
-                ),
-                Align(
-                  alignment: Alignment.bottomLeft,
-                  child: Container(
-                    padding: EdgeInsets.only(left: 10, bottom: 10, top: 10),
-                    height: 60,
-                    width: double.infinity,
-                    color: Colors.white,
-                    child: Row(
-                      children: <Widget>[
-                        SizedBox(width: 15),
-                        Expanded(
-                          child: TextField(
-                            controller: messageController,
-                            decoration: InputDecoration(
-                              hintText: "Ecrivez un message...",
-                              hintStyle: TextStyle(color: Colors.black54),
-                              border: InputBorder.none,
+                    final message = userProvider.messages[index];
+                    return Column(
+                      crossAxisAlignment:
+                          message.messageType == 'custumerclient'
+                              ? CrossAxisAlignment.start
+                              : CrossAxisAlignment.end,
+                      children: [
+                        Container(
+                          padding: EdgeInsets.symmetric(
+                              horizontal: 14, vertical: 10),
+                          child: Align(
+                            alignment: message.messageType == 'custumerclient'
+                                ? Alignment.topLeft
+                                : Alignment.topRight,
+                            child: Container(
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(20),
+                                color: message.messageType == 'user'
+                                    ? Colors.grey.shade200
+                                    : Color.fromARGB(255, 248, 190, 222),
+                              ),
+                              padding: EdgeInsets.all(16),
+                              child: Column(
+                                children: [
+                                  Text(
+                                    message.messageContent,
+                                    style: TextStyle(
+                                      fontSize: 17,
+                                      color: Color.fromARGB(255, 7, 7, 7),
+                                    ),
+                                  ),
+                                ],
+                              ),
                             ),
                           ),
                         ),
-                        SizedBox(width: 15),
-                        FloatingActionButton(
-                          child: Icon(
-                            Icons.send,
-                            color: Colors.white,
-                            size: 18,
+                        if (message.actions != null)
+                          Container(
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: message.actions
+                                  .map<Widget>((action) => ElevatedButton(
+                                        onPressed: () {
+                                          userProvider
+                                              .handleAction(action['value']);
+                                        },
+                                        child: Text(action['title']),
+                                      ))
+                                  .toList(),
+                            ),
+                            width: 300,
                           ),
-                          backgroundColor: Color(0xFFFF1844),
-                          elevation: 0,
-                          onPressed: () {
-                            userProvider.sendMessage(
-                                messageController.text, 'user');
-                            messageController.clear();
-                          },
-                        ),
                       ],
-                    ),
-                  ),
+                    );
+                  },
                 ),
-              ],
-            ),
+              ),
+              /*  Container(
+                padding: EdgeInsets.all(8),
+                color: Colors.white,
+                child: Row(
+                  children: <Widget>[
+                    Expanded(
+                      child: TextField(
+                        controller: messageController,
+                        decoration: InputDecoration(
+                          hintText: "Write a message...",
+                          hintStyle: TextStyle(color: Colors.black54),
+                          border: InputBorder.none,
+                        ),
+                      ),
+                    ),
+                    SizedBox(width: 15),
+                    FloatingActionButton(
+                      child: Icon(
+                        Icons.send,
+                        color: Colors.white,
+                        size: 18,
+                      ),
+                      backgroundColor: Color(0xFFFF1844),
+                      elevation: 0,
+                      onPressed: () {
+                        userProvider.addMessage(messageController.text, 'user');
+                        messageController.clear();
+                      },
+                    ),
+                  ],
+                ),
+              ), */
+            ],
           ),
+          bottomNavigationBar:
+              CustomBottomNavBar(selectedMenu: MenuState.profile),
         );
       },
     );

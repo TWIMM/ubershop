@@ -51,7 +51,7 @@ class Body extends StatelessWidget {
             icon: "assets/icons/Question mark.svg",
             press: () => Navigator.pushNamed(
               context,
-              ChatDetailPage.routeName,
+              ChatDetailPageWrapper.routeName,
               arguments: '',
             ),
           ),
