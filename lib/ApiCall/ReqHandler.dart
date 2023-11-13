@@ -1,5 +1,5 @@
 import 'dart:convert';
-import 'package:uber/constants.dart';
+import 'package:Itine/constants.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -57,15 +57,16 @@ class AuthService {
     return reqRes;
   }
 
-  Future register(String email, String password, String name) async {
+  Future register(String email, String password, String name , user_type) async {
     final registerData = {
       'name': name,
       'email': email,
+      'user_type': user_type,
       'password': password,
     };
 
     final response =
-        await RequestService.post(ApiEndpoints.register, registerData);
+        await RequestService.postLikeGet(ApiEndpoints.register, registerData);
     return response;
   }
 }

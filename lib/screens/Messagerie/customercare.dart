@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:uber/UseridProvider.dart'; // Replace with the correct path
-import 'package:uber/components/coustom_bottom_nav_bar.dart';
-import 'package:uber/enums.dart';
+import 'package:Itine/UseridProvider.dart'; // Replace with the correct path
+import 'package:Itine/components/coustom_bottom_nav_bar.dart';
+import 'package:Itine/enums.dart';
 
 class ChatDetailPageWrapper extends StatefulWidget {
   static String routeName = '/messenger';

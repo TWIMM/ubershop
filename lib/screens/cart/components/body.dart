@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:uber/screens/home/home_screen.dart';
-import 'package:uber/ApiCall/ReqHandler.dart';
+import 'package:Itine/screens/home/home_screen.dart';
+import 'package:Itine/ApiCall/ReqHandler.dart';
 import '../../../size_config.dart';
 import 'cart_card.dart';
 

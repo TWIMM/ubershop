@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:uber/ApiCall/ReqHandler.dart';
+import 'package:Itine/ApiCall/ReqHandler.dart';
 import '../../../size_config.dart';
 
 class Categories extends StatefulWidget {
@@ -13,8 +13,6 @@ class _CategoriesState extends State<Categories> {
   void initState() {
     super.initState();
   }
-
- 
 
   @override
   Widget build(BuildContext context) {

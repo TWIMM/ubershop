@@ -2,11 +2,11 @@
 
 import 'custom_card.dart';
 import 'package:flutter/material.dart';
-import 'package:uber/screens/details/details_screen.dart';
-import 'package:uber/components/default_button.dart';
-import 'package:uber/screens/details/details_screen.dart';
+import 'package:Itine/screens/details/details_screen.dart';
+import 'package:Itine/components/default_button.dart';
+import 'package:Itine/screens/details/details_screen.dart';
 
-import 'package:uber/models/Product.dart';
+import 'package:Itine/models/Product.dart';
 
 class CarouselCard extends StatefulWidget {
   final String imagePath;

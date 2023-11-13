@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:uber/size_config.dart';
+import 'package:Itine/size_config.dart';
 
 const kPrimaryColor = Color(0xFFFF1844);
 const kPrimaryLightColor = Color(0xFFFFECDF);

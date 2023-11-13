@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:uber/components/no_account_text.dart';
-//import 'package:uber/components/socal_card.dart';
+import 'package:Itine/components/no_account_text.dart';
+//import 'package:Itine/components/socal_card.dart';
 import '../../../size_config.dart';
 import 'sign_form.dart';
 

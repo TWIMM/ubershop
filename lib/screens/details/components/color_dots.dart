@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:uber/components/rounded_icon_btn.dart';
-import 'package:uber/models/Product.dart';
+import 'package:Itine/components/rounded_icon_btn.dart';
+import 'package:Itine/models/Product.dart';
 
 import '../../../constants.dart';
 import '../../../size_config.dart';

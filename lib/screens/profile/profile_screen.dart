@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:uber/components/coustom_bottom_nav_bar.dart';
-import 'package:uber/enums.dart';
+import 'package:Itine/components/coustom_bottom_nav_bar.dart';
+import 'package:Itine/enums.dart';
 
 import 'components/body.dart';
 

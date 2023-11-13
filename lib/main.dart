@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:uber/routes.dart';
-import 'package:uber/screens/splash/splash_screen.dart';
-import 'package:uber/theme.dart';
+import 'package:Itine/routes.dart';
+import 'package:Itine/screens/splash/splash_screen.dart';
+import 'package:Itine/theme.dart';
 import 'UseridProvider.dart'; // Import your UserProvider file
 
 void main() {

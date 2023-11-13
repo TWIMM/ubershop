@@ -5,41 +5,49 @@ class LivreurCard extends StatelessWidget {
     Key? key,
     required this.title,
     required this.total,
-    required this.press,
+    this.icon, // Ajout d'une icône optionnelle
   }) : super(key: key);
 
   final String title;
   final int total;
-  final GestureTapCallback press;
+  final IconData? icon;
 
   @override
   Widget build(BuildContext context) {
-    return _buildImage();
+    return Container(
+      decoration: BoxDecoration(
+        color: _getColor(),
+        borderRadius: BorderRadius.circular(15),
+      ),
+      child: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            if (icon != null) Icon(icon),
+            Text(
+              title,
+              style: TextStyle(
+                color: Colors.white,
+              ),
+            ),
+            Text(
+              'Total: $total',
+              style: TextStyle(color: Colors.white, fontSize: 20),
+            ),
+          ],
+        ),
+      ),
+    );
   }
 
-  Widget _buildImage() {
-    return SizedBox(
-        width: 100,
-        child: Container(
-          child: Column(
-            children: [
-              Text(title),
-              SizedBox(height: 10),
-              Text('Total : $total'),
-            ],
-          ),
-          width: 100,
-          height: 100,
-          padding: EdgeInsets.all(3),
-          decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(100),
-              boxShadow: [
-                BoxShadow(
-                    color: Color.fromRGBO(211, 209, 216, 0.30),
-                    offset: Offset(5, 10),
-                    blurRadius: 20)
-              ],
-              color: Color(0xFFFF1844)),
-        ));
+  Color _getColor() {
+    // Ajoutez ici la logique pour obtenir une couleur selon le titre ou utilisez différentes couleurs par défaut
+    // Exemple :
+    if (title == 'Delivery Title') {
+      return Color(0xFFFF4848);
+    } else if (title == 'Other Menu Item') {
+      return Color(0xFFFF4848);
+    }
+    return Color(0xFFFF4848); // Couleur par défaut si aucun titre ne correspond
   }
 }

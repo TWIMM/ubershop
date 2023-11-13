@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:uber/models/Cart.dart';
+import 'package:Itine/models/Cart.dart';
 import '../../size_config.dart';
 import 'package:provider/provider.dart';
 import '../../UseridProvider.dart';

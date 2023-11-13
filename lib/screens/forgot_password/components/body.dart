@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:uber/components/custom_surfix_icon.dart';
-import 'package:uber/components/default_button.dart';
-import 'package:uber/components/form_error.dart';
-import 'package:uber/components/no_account_text.dart';
-import 'package:uber/size_config.dart';
+import 'package:Itine/components/custom_surfix_icon.dart';
+import 'package:Itine/components/default_button.dart';
+import 'package:Itine/components/form_error.dart';
+import 'package:Itine/components/no_account_text.dart';
+import 'package:Itine/size_config.dart';
 
 import '../../../constants.dart';
 

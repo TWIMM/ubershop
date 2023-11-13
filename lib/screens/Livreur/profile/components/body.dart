@@ -6,8 +6,9 @@ import 'package:flutter/services.dart';
 import 'package:flutter/services.dart';
 import 'profile_pic.dart';
 import 'package:provider/provider.dart';
-import '../../../UseridProvider.dart';
+import '../../../../UseridProvider.dart';
 import 'package:Itine/ApiCall/ReqHandler.dart';
+import '../../retrait.dart';
 import 'package:Itine/screens/Messagerie/customercare.dart';
 
 class Body extends StatelessWidget {
@@ -47,11 +48,11 @@ class Body extends StatelessWidget {
             ),
           ),
           ProfileMenu(
-            text: "Discuter avec le service client",
+            text: "Effectuer un retrait",
             icon: "assets/icons/Question mark.svg",
             press: () => Navigator.pushNamed(
               context,
-              ChatDetailPageWrapper.routeName,
+              Retrait.routeName,
               arguments: '',
             ),
           ),

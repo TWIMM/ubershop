@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:uber/ApiCall/ReqHandler.dart'; // Import your API handler
+import 'package:Itine/ApiCall/ReqHandler.dart'; // Import your API handler
 import '../../../size_config.dart';
 import 'pro_by_category.dart';
 import 'section_title.dart';
 import '../../../constants.dart';
-import 'package:uber/screens/home/home_screen.dart';
+import 'package:Itine/screens/home/home_screen.dart';
 
 class SpecialOffers extends StatefulWidget {
   const SpecialOffers({Key? key}) : super(key: key);

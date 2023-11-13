@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:uber/models/Cart.dart';
-import 'package:uber/ApiCall/ReqHandler.dart';
+import 'package:Itine/models/Cart.dart';
+import 'package:Itine/ApiCall/ReqHandler.dart';
 import 'package:flutter_svg/svg.dart';
 import '../../../constants.dart';
 import '../../../size_config.dart';

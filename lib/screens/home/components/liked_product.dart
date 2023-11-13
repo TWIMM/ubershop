@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'Carousel_card.dart';
-import 'package:uber/models/Product.dart';
-import 'package:uber/enums.dart';
-import 'package:uber/components/coustom_bottom_nav_bar.dart';
-import 'package:uber/ApiCall/ReqHandler.dart';
-import 'package:uber/screens/details/details_screen.dart';
+import 'package:Itine/models/Product.dart';
+import 'package:Itine/enums.dart';
+import 'package:Itine/components/coustom_bottom_nav_bar.dart';
+import 'package:Itine/ApiCall/ReqHandler.dart';
+import 'package:Itine/screens/details/details_screen.dart';
 import 'categories.dart';
 
 class LikedProducts extends StatefulWidget {

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:uber/ApiCall/ReqHandler.dart';
+import 'package:Itine/ApiCall/ReqHandler.dart';
 
 class ChatMessage {
   String messageContent;

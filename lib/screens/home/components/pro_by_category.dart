@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:uber/components/product_card.dart';
-import 'package:uber/models/Product.dart';
+import 'package:Itine/components/product_card.dart';
+import 'package:Itine/models/Product.dart';
 import 'Carousel_card.dart';
-import 'package:uber/ApiCall/ReqHandler.dart';
-import 'package:uber/screens/details/details_screen.dart';
+import 'package:Itine/ApiCall/ReqHandler.dart';
+import 'package:Itine/screens/details/details_screen.dart';
 
 class ProByCategory extends StatefulWidget {
   static String routeName = "/pro_by_category";

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:uber/screens/splash/components/body.dart';
-import 'package:uber/size_config.dart';
+import 'package:Itine/screens/splash/components/body.dart';
+import 'package:Itine/size_config.dart';
 
 class SplashScreen extends StatelessWidget {
   static String routeName = "/splash";

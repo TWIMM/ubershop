@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:uber/models/Product.dart';
-import 'package:uber/screens/details/details_screen.dart';
+import 'package:Itine/models/Product.dart';
+import 'package:Itine/screens/details/details_screen.dart';
 
 import '../constants.dart';
 import '../size_config.dart';

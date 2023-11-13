@@ -1,14 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:uber/components/custom_surfix_icon.dart';
-import 'package:uber/components/form_error.dart';
-import 'package:uber/helper/keyboard.dart';
-import 'package:uber/screens/forgot_password/forgot_password_screen.dart';
-import 'package:uber/screens/login_success/login_success_screen.dart';
-import 'package:uber/ApiCall/ReqHandler.dart';
+import 'package:Itine/components/custom_surfix_icon.dart';
+import 'package:Itine/components/form_error.dart';
+import 'package:Itine/helper/keyboard.dart';
+import 'package:Itine/screens/forgot_password/forgot_password_screen.dart';
+import 'package:Itine/screens/login_success/login_success_screen.dart';
+import 'package:Itine/ApiCall/ReqHandler.dart';
 import 'package:provider/provider.dart';
 import '../../../UseridProvider.dart';
 import '../../../components/default_button.dart';
 import '../../../constants.dart';
+import '../../Livreur/dashboard.dart';
 import '../../../size_config.dart';
 
 class SignForm extends StatefulWidget {
@@ -88,10 +89,17 @@ class _SignFormState extends State<SignForm> {
                   addError(error: incorrectAccess);
                 } else {
                   userProvider.setUserId(response['user_id']);
-                  Navigator.pushNamed(
-                    context,
-                    LoginSuccessScreen.routeName,
-                  );
+                  if (response['user_type'] == 'client') {
+                    Navigator.pushNamed(
+                      context,
+                      LoginSuccessScreen.routeName,
+                    );
+                  } else if (response['user_type'] == 'livreur') {
+                    Navigator.pushNamed(
+                      context,
+                      Dashboard.routeName,
+                    );
+                  }
                   removeError(error: incorrectAccess);
                 }
               }

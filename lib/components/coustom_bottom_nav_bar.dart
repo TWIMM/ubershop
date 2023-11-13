@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:uber/screens/home/home_screen.dart';
-import 'package:uber/screens/profile/profile_screen.dart';
-import 'package:uber/screens/home/components/liked_product.dart';
-import 'package:uber/screens/Tracking/trackingnumber.dart';
+import 'package:Itine/screens/home/home_screen.dart';
+import 'package:Itine/screens/profile/profile_screen.dart';
+import 'package:Itine/screens/home/components/liked_product.dart';
+import 'package:Itine/screens/Tracking/trackingnumber.dart';
 import '../constants.dart';
 import '../enums.dart';
 

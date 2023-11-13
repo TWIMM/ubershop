@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'package:uber/components/AlreadyHaveAccountText.dart';
+import 'package:Itine/components/AlreadyHaveAccountText.dart';
 import '../../constants.dart';
 import '../../size_config.dart';
 import 'components/sign_up_form.dart';

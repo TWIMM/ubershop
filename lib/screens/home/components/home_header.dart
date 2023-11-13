@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:uber/screens/cart/cart_screen.dart';
+import 'package:Itine/screens/cart/cart_screen.dart';
 
 import '../../../size_config.dart';
 import 'icon_btn_with_counter.dart';

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:uber/components/default_button.dart';
-import 'package:uber/size_config.dart';
+import 'package:Itine/components/default_button.dart';
+import 'package:Itine/size_config.dart';
 
 import '../../../constants.dart';
 

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:uber/constants.dart';
-import 'package:uber/screens/sign_in/sign_in_screen.dart';
-import 'package:uber/size_config.dart';
+import 'package:Itine/constants.dart';
+import 'package:Itine/screens/sign_in/sign_in_screen.dart';
+import 'package:Itine/size_config.dart';
 
 import '../components/splash_content.dart';
 import '../../../components/default_button.dart';

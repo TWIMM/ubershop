@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:uber/components/default_button.dart';
-import 'package:uber/models/Product.dart';
-import 'package:uber/size_config.dart';
+import 'package:Itine/components/default_button.dart';
+import 'package:Itine/models/Product.dart';
+import 'package:Itine/size_config.dart';
 import 'package:provider/provider.dart';
 import '../../../UseridProvider.dart';
 import 'color_dots.dart';
 import 'product_description.dart';
 import 'top_rounded_container.dart';
 import 'product_images.dart';
-import 'package:uber/ApiCall/ReqHandler.dart';
-import 'package:uber/screens/home/home_screen.dart';
+import 'package:Itine/ApiCall/ReqHandler.dart';
+import 'package:Itine/screens/home/home_screen.dart';
 
 class Body extends StatelessWidget {
   final Product product;

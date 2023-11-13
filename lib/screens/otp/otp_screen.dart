@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:uber/size_config.dart';
+import 'package:Itine/size_config.dart';
 
 import 'components/body.dart';
 

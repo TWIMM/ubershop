@@ -3,7 +3,7 @@ import '../../../size_config.dart';
 //import 'categories.dart';
 import 'discount_banner.dart';
 import 'home_header.dart';
-import 'package:uber/ApiCall/ReqHandler.dart';
+import 'package:Itine/ApiCall/ReqHandler.dart';
 import 'popular_product.dart';
 import 'special_offers.dart';
 import 'package:geolocator/geolocator.dart';

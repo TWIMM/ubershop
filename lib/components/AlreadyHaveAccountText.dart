@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:uber/screens/sign_in/sign_in_screen.dart';
+import 'package:Itine/screens/sign_in/sign_in_screen.dart';
 
 import '../constants.dart';
 import '../size_config.dart';

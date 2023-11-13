@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:uber/constants.dart';
-import 'package:uber/size_config.dart';
+import 'package:Itine/constants.dart';
+import 'package:Itine/size_config.dart';
 
 import 'complete_profile_form.dart';
 
