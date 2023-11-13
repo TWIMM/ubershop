@@ -4,6 +4,7 @@ import '../../../size_config.dart';
 import 'pro_by_category.dart';
 import 'section_title.dart';
 import '../../../constants.dart';
+import 'package:uber/screens/home/home_screen.dart';
 
 class SpecialOffers extends StatefulWidget {
   const SpecialOffers({
@@ -57,10 +58,21 @@ class _SpecialOffersState extends State<SpecialOffers> {
                 future: loadCount(category['id']),
                 builder: (BuildContext context, AsyncSnapshot<int> snapshot) {
                   if (snapshot.connectionState == ConnectionState.waiting) {
-                    return CircularProgressIndicator(); // Or a loading indicator
+                    return SizedBox(
+                      width: 50, // Adjust the size to create space
+                      child:
+                          CircularProgressIndicator(), // Or a loading indicator
+                    ); // Or a loading indicator
                   } else if (snapshot.hasError) {
-                    loadCategories();
-                    return CircularProgressIndicator();
+                    Navigator.pushNamed(
+                      context,
+                      HomeScreen.routeName,
+                    );
+                    return SizedBox(
+                      width: 50, // Adjust the size to create space
+                      child:
+                          CircularProgressIndicator(), // Or a loading indicator
+                    );
                   } else {
                     return SpecialOfferCard(
                       image: baseImageUrl +
