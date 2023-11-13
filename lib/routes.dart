@@ -7,7 +7,7 @@ import 'package:Itine/screens/home/home_screen.dart';
 import 'package:Itine/screens/login_success/login_success_screen.dart';
 import 'package:Itine/screens/otp/otp_screen.dart';
 import 'package:Itine/screens/profile/profile_screen.dart';
-import 'package:Itine/screens/livreur/profile/profile_screen.dart';
+import 'package:Itine/screens/Livreur/profile/profile_screen.dart';
 import 'package:Itine/screens/sign_in/sign_in_screen.dart';
 import 'package:Itine/screens/splash/splash_screen.dart';
 import 'screens/sign_up/sign_up_screen.dart';
