@@ -39,8 +39,8 @@ class UserProvider with ChangeNotifier {
             'value': 'faq3',
           },
           {
-            'title': 'Faq 2',
-            'value': 'faq3',
+            'title': 'Faq 4',
+            'value': 'faq4',
           },
           // Add more actions/buttons as needed
         ],
@@ -58,7 +58,9 @@ class UserProvider with ChangeNotifier {
       } else if (actionValue == 'faq2') {
         addMessage('This is the response for FAQ 2', 'custumerclient');
       } else if (actionValue == 'faq3') {
-        addMessage('This is the response for FAQ 3', 'custumerclient');
+        addMessage('This is the response for FAQ 4', 'custumerclient');
+      } else if (actionValue == 'faq4') {
+        addMessage('This is the response for FAQ 4', 'custumerclient');
       }
       // Add more else-if conditions for each action as needed
     });
