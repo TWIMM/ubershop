@@ -7,9 +7,8 @@ import '../../../constants.dart';
 import 'package:uber/screens/home/home_screen.dart';
 
 class SpecialOffers extends StatefulWidget {
-  const SpecialOffers({
-    Key? key,
-  }) : super(key: key);
+  const SpecialOffers({Key? key}) : super(key: key);
+
   @override
   _SpecialOffersState createState() => _SpecialOffersState();
 }
@@ -17,6 +16,7 @@ class SpecialOffers extends StatefulWidget {
 class _SpecialOffersState extends State<SpecialOffers> {
   final CategorieService categorieService = CategorieService();
   List<Map<String, dynamic>> categories = [];
+  bool isLoading = false;
 
   @override
   void initState() {
@@ -25,10 +25,25 @@ class _SpecialOffersState extends State<SpecialOffers> {
   }
 
   Future<void> loadCategories() async {
-    dynamic response = await categorieService.getCategories();
-    setState(() {
-      categories = List<Map<String, dynamic>>.from(response);
-    });
+    if (categories.isEmpty) {
+      try {
+        setState(() {
+          isLoading = true;
+        });
+
+        dynamic response = await categorieService.getCategories();
+        setState(() {
+          categories = List<Map<String, dynamic>>.from(response);
+          isLoading = false;
+        });
+      } catch (e) {
+        // Handle the error accordingly
+        print('Error loading categories: $e');
+        setState(() {
+          isLoading = false;
+        });
+      }
+    }
   }
 
   Future<int> loadCount(category_id) async {
@@ -57,35 +72,40 @@ class _SpecialOffersState extends State<SpecialOffers> {
               return FutureBuilder<int>(
                 future: loadCount(category['id']),
                 builder: (BuildContext context, AsyncSnapshot<int> snapshot) {
-                  if (snapshot.connectionState == ConnectionState.waiting) {
+                  if (isLoading) {
                     return SizedBox(
-                      width: 50, // Adjust the size to create space
-                      child:
-                          CircularProgressIndicator(), // Or a loading indicator
-                    ); // Or a loading indicator
-                  } else if (snapshot.hasError) {
-                    Navigator.pushNamed(
-                      context,
-                      HomeScreen.routeName,
+                      width: getProportionateScreenWidth(50),
+                      height: getProportionateScreenWidth(50),
+                      child: Center(child: CircularProgressIndicator()),
                     );
+                  } else if (snapshot.hasError) {
                     return SizedBox(
-                      width: 50, // Adjust the size to create space
-                      child:
-                          CircularProgressIndicator(), // Or a loading indicator
+                      width: getProportionateScreenWidth(50),
+                      height: getProportionateScreenWidth(50),
+                      child: Center(child: CircularProgressIndicator()),
                     );
                   } else {
-                    return SpecialOfferCard(
-                      image: baseImageUrl +
-                          '/categories/' +
-                          category['background_image'],
-                      category: category['label'],
-                      numOfBrands: snapshot.data!,
-                      press: () => Navigator.pushNamed(
-                        context,
-                        ProByCategory.routeName,
-                        arguments: {'category': category},
-                      ),
-                    );
+                    if (snapshot.hasData) {
+                      return SpecialOfferCard(
+                        image: baseImageUrl +
+                            '/categories/' +
+                            category['background_image'],
+                        category: category['label'],
+                        numOfBrands: snapshot.data!,
+                        press: () => Navigator.pushNamed(
+                          context,
+                          ProByCategory.routeName,
+                          arguments: {'category': category},
+                        ),
+                      );
+                    } else {
+                      // If there's no error but the data is null
+                      return SizedBox(
+                        width: getProportionateScreenWidth(50),
+                        height: getProportionateScreenWidth(50),
+                        child: Center(child: CircularProgressIndicator()),
+                      );
+                    }
                   }
                 },
               );

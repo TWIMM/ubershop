@@ -26,21 +26,23 @@ class ChatDetailPage extends StatelessWidget {
                       padding: EdgeInsets.only(
                           left: 14, right: 14, top: 10, bottom: 10),
                       child: Align(
-                        alignment: (userProvider.messages[index].messageType ==
+                        alignment: (userProvider.messages[index]
+                                    ['messageType'] ==
                                 "custumerclient"
                             ? Alignment.topLeft
                             : Alignment.topRight),
                         child: Container(
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(20),
-                            color: (userProvider.messages[index].messageType ==
+                            color: (userProvider.messages[index]
+                                        ['messageType'] ==
                                     "user"
                                 ? Colors.grey.shade200
                                 : Color.fromARGB(255, 248, 190, 222)),
                           ),
                           padding: EdgeInsets.all(16),
                           child: Text(
-                            userProvider.messages[index].messageContent,
+                            userProvider.messages[index]['messageContent'],
                             style: TextStyle(fontSize: 15),
                           ),
                         ),

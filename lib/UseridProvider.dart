@@ -13,13 +13,7 @@ class ChatMessage {
 class UserProvider with ChangeNotifier {
   final CategorieService categorieService = CategorieService();
   int user_id = 0; // Initialize with an empty string
-  List<ChatMessage> messages = [
-    ChatMessage(
-      messageContent:
-          'Bienvenu sur Itine , \n veuillez laisser votre message\n le service client se chargera de répondre.',
-      messageType: 'custumerclient',
-    ),
-  ]; // List to hold messages
+  List messages = []; // List to hold messages
 
   int get newUserId => user_id;
 
@@ -32,14 +26,7 @@ class UserProvider with ChangeNotifier {
   Future<void> fetchMessages() async {
     var response = await categorieService.getusermessage(user_id);
     if (response != null) {
-      List<ChatMessage> fetchedMessages = [];
-      for (var msg in response) {
-        fetchedMessages.add(ChatMessage(
-          messageContent: msg['messageContent'],
-          messageType: msg['messageType'],
-        ));
-      }
-      messages = fetchedMessages;
+      messages = response;
       notifyListeners();
     }
   }
@@ -51,15 +38,7 @@ class UserProvider with ChangeNotifier {
 
     if (response == false) {
       // If the message was successfully added to the database
-      addMessage(ChatMessage(
-        messageContent: messageContent,
-        messageType: messageType,
-      ));
+      fetchMessages();
     }
-  }
-
-  void addMessage(ChatMessage message) {
-    messages.add(message);
-    notifyListeners();
   }
 }
