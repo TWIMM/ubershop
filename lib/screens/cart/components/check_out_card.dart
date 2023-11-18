@@ -51,9 +51,28 @@ class _CheckoutCardState extends State<CheckoutCard> {
     print(totalCartPrice);
   }
 
+  Future<void> deleteCartItem(cartItem_id) async {
+    bool response = await categorieService.deleteCartItem(cartItem_id);
+    //print(response);
+
+    if (response == false) {
+      Navigator.pushNamed(
+        context,
+        HomeScreen.routeName,
+        arguments: '',
+      );
+    }
+  }
+
   Future<void> createorder(totalamount) async {
     var response =
         await categorieService.createorder(widget.user_id, totalamount, cart);
+
+    cart.forEach((var cartItem) {
+      setState(() {
+        deleteCartItem(cartItem['id']);
+      });
+    });
 
     Navigator.pushNamed(context, HomeScreen.routeName);
   }
