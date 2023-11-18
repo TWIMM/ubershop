@@ -53,7 +53,7 @@ class _CartCardState extends State<CartCard> {
                       borderRadius: BorderRadius.circular(15),
                     ),
                     child: Image.network(
-                      baseImageUrl + '/produits/' + _product['images_names'],
+                      baseImageUrl + '/produits/' + _product['images_names'][0],
                       width: double.infinity,
                       height: double.infinity,
                       fit: BoxFit.cover,
