@@ -1,15 +1,11 @@
 import 'package:flutter/material.dart';
-import 'Carousel_card.dart';
+import 'Liked_card.dart';
 import 'package:Itine/models/Product.dart';
 import 'package:Itine/enums.dart';
 import 'package:Itine/components/coustom_bottom_nav_bar.dart';
 import 'package:Itine/ApiCall/ReqHandler.dart';
 import 'package:provider/provider.dart';
-import 'package:flutter_svg/svg.dart';
-import '../../cart/components/cart_card.dart';
-
 import '../../../UseridProvider.dart';
-import 'package:Itine/screens/home/home_screen.dart';
 import 'package:Itine/screens/details/details_screen.dart';
 import 'categories.dart';
 
@@ -90,19 +86,6 @@ class _LikedProductsState extends State<LikedProducts> {
     );
   }
 
-  Future<void> deleteCartItem(cartItem_id) async {
-    bool response = await categorieService.deleteCartItem(cartItem_id);
-    //print(response);
-
-    if (response == false) {
-      Navigator.pushNamed(
-        context,
-        HomeScreen.routeName,
-        arguments: '',
-      );
-    }
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -163,40 +146,40 @@ class _LikedProductsState extends State<LikedProducts> {
           width: MediaQuery.of(context).size.width,
           child: SizedBox(
             height: MediaQuery.of(context).size.height * 0.8,
-            child: ListView.builder(
-                itemCount: allProducts
-                    .length, // Use the length of the fetched cart list
-                itemBuilder: (context, index) {
-                  dynamic cartItem = allProducts[index];
-                  return Padding(
-                    padding: EdgeInsets.symmetric(vertical: 10),
-                    child: Dismissible(
-                      key: Key(cartItem['id'].toString()),
-                      direction: DismissDirection.endToStart,
-                      onDismissed: (direction) {
-                        setState(() {
-                          allProducts.removeAt(index);
-                        });
-
-                        deleteCartItem(cartItem['id']);
-                      },
-                      background: Container(
-                        padding: EdgeInsets.symmetric(horizontal: 20),
-                        decoration: BoxDecoration(
-                          color: Color(0xFFFFE6E6),
-                          borderRadius: BorderRadius.circular(15),
-                        ),
-                        child: Row(
-                          children: [
-                            Spacer(),
-                            SvgPicture.asset("assets/icons/Trash.svg"),
-                          ],
-                        ),
+            child: GridView.builder(
+              gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
+                maxCrossAxisExtent: 300,
+                mainAxisExtent: 200,
+                childAspectRatio: 1,
+                crossAxisSpacing: 20,
+                mainAxisSpacing: 40,
+              ),
+              itemCount: allProducts.length,
+              itemBuilder: (_, int index) {
+                final item = allProducts[index];
+                return Container(
+                  margin: const EdgeInsets.only(bottom: 10.0),
+                  height: 300,
+                  child: Column(
+                    children: [
+                      LikedCard(
+                        item: item,
+                        user_id: user_id,
+                        cardWidth: 270,
+                        height: 600,
+                        imagePath: item.images[0],
+                        title: item.title,
+                        isActivated: true,
+                        borderRadius: BorderRadius.circular(8),
                       ),
-                      child: CartCard(cart: cartItem),
-                    ),
-                  );
-                }),
+                      Expanded(
+                        child: _buildContent(item.title, 600),
+                      ),
+                    ],
+                  ),
+                );
+              },
+            ),
           ),
         ),
       ),

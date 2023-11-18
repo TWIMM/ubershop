@@ -105,7 +105,7 @@ class CategorieService {
     final data = {'user_id': user_id, "product_id": product_id};
 
     final response =
-        await RequestService.postLikeGet(ApiEndpoints.addbestproduct, data);
+        await RequestService.postLikeGet(ApiEndpoints.deletebestproduct, data);
     final reqRes = response;
     // print('gett');
     return reqRes['error'];
