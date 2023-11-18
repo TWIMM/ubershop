@@ -68,10 +68,9 @@ class _CheckoutCardState extends State<CheckoutCard> {
     var response =
         await categorieService.createorder(widget.user_id, totalamount, cart);
 
-    cart.forEach((var cartItem) {
-      setState(() {
-        deleteCartItem(cartItem['id']);
-      });
+    // Use Future.forEach to wait for all asynchronous operations to complete
+    await Future.forEach(cart, (var cartItem) async {
+      await deleteCartItem(cartItem['id']);
     });
 
     Navigator.pushNamed(context, HomeScreen.routeName);
