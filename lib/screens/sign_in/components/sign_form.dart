@@ -19,6 +19,7 @@ class SignForm extends StatefulWidget {
 
 class _SignFormState extends State<SignForm> {
   final AuthService authService = AuthService();
+  final CategorieService categorieService = CategorieService();
 
   final _formKey = GlobalKey<FormState>();
   String? email;
@@ -84,7 +85,8 @@ class _SignFormState extends State<SignForm> {
                 // if all are valid then go to success screen
                 KeyboardUtil.hideKeyboard(context);
                 dynamic response = await authService.login(email!, password!);
-                print(response);
+                // print(response);
+                var livreur_id = response['user_id'];
                 if (response['status'] == false) {
                   addError(error: incorrectAccess);
                 } else {
@@ -95,6 +97,11 @@ class _SignFormState extends State<SignForm> {
                       LoginSuccessScreen.routeName,
                     );
                   } else if (response['user_type'] == 'livreur') {
+                    dynamic response =
+                        await categorieService.getlivraisonbystatus(livreur_id);
+                    //print(response);
+                    userProvider.setUserDelivery(response['start'],
+                        response['over'], response['en_cours']);
                     Navigator.pushNamed(
                       context,
                       Dashboard.routeName,

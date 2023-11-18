@@ -57,7 +57,7 @@ class AuthService {
     return reqRes;
   }
 
-  Future register(String email, String password, String name , user_type) async {
+  Future register(String email, String password, String name, user_type) async {
     final registerData = {
       'name': name,
       'email': email,
@@ -220,5 +220,47 @@ class CategorieService {
     final reqRes = response;
     //print('gett');
     return reqRes['messages'];
+  }
+
+  Future getlivraisonbystatus(int livreur_id) async {
+    final data = {'livreur_id': livreur_id};
+
+    final response = await RequestService.postLikeGet(
+        ApiEndpoints.getlivraisonbystatus, data);
+    final reqRes = response;
+    //print('gett');
+    return reqRes['livraison'];
+  }
+
+  Future StartLivraion(int livraison_id) async {
+    final data = {'livraison_id': livraison_id};
+
+    final response =
+        await RequestService.postLikeGet(ApiEndpoints.StartLivraion, data);
+    final reqRes = response;
+    //print('gett');
+    return reqRes['error'];
+  }
+
+  Future endLivraison(int livraison_id) async {
+    final data = {'livraison_id': livraison_id};
+
+    final response =
+        await RequestService.postLikeGet(ApiEndpoints.endLivraison, data);
+    final reqRes = response;
+    //print('gett');
+    return reqRes['error'];
+  }
+
+  Future changeLivraisonMilestone(int livraison_id) async {
+    final data = {
+      'livraison_id': livraison_id,
+    };
+
+    final response = await RequestService.postLikeGet(
+        ApiEndpoints.changeLivraisonMilestone, data);
+    final reqRes = response;
+    //print('gett');
+    return reqRes['error'];
   }
 }

@@ -75,6 +75,10 @@ class ApiEndpoints {
   static const createorder = '/order/create';
   static const createusermessage = '/message/createusermessage';
   static const getusermessage = '/message/getusermessage';
+  static const getlivraisonbystatus = '/livraison/getbystatus';
+  static const changeLivraisonMilestone = '/livraison/changeLivraisonMilestone';
+  static const endLivraison = '/livraison/endLivraison';
+  static const StartLivraion = '/livraison/StartLivraion';
 
   static const baseUrl = 'https://ottawa-canada.net/public/api';
 }

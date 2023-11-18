@@ -2,8 +2,11 @@ import 'package:flutter/material.dart';
 import '../../../size_config.dart';
 import 'package:Itine/screens/home/components/home_header.dart';
 import 'livreurcard.dart';
+import 'package:provider/provider.dart';
+import '../../UseridProvider.dart';
 import 'package:Itine/models/dashelement.dart';
 import './profile/profile_screen.dart';
+import 'listelivraison.dart';
 
 class Dashboard extends StatefulWidget {
   static String routeName = "/livreurdash";
@@ -15,6 +18,9 @@ class Dashboard extends StatefulWidget {
 class _DashboardState extends State<Dashboard> {
   @override
   Widget build(BuildContext context) {
+    var userProvider = Provider.of<UserProvider>(context);
+    print(userProvider.livreur_delivery_start);
+    print(userProvider.livreur_delivery_over);
     SizeConfig().init(context);
     return Scaffold(
       appBar: AppBar(
@@ -34,9 +40,37 @@ class _DashboardState extends State<Dashboard> {
                 children: [
                   // Widget to display deliveries
 
-                  DeliveryCard(
-                    title: "Livraison en cours",
-                    total: 5,
+                  GestureDetector(
+                    onTap: () {
+                      Navigator.pushNamed(context, Liste.routeName,
+                          arguments: userProvider.livreur_delivery_start);
+                    },
+                    child: DeliveryCard(
+                      title: "Livraisons en attente",
+                      total: userProvider.livreur_delivery_start.length,
+                    ),
+                  ),
+
+                  GestureDetector(
+                    onTap: () {
+                      Navigator.pushNamed(context, Liste.routeName,
+                          arguments: userProvider.livreur_delivery__encours);
+                    },
+                    child: DeliveryCard(
+                      title: "Livraisons en cours",
+                      total: userProvider.livreur_delivery__encours.length,
+                    ),
+                  ),
+                  // Widget for other menu items
+                  GestureDetector(
+                    onTap: () {
+                      Navigator.pushNamed(context, Liste.routeName,
+                          arguments: userProvider.livreur_delivery_over);
+                    },
+                    child: DeliveryCard(
+                      title: "Livraisons éffectuées",
+                      total: userProvider.livreur_delivery_over.length,
+                    ),
                   ),
 
                   // Widget for other menu items
@@ -122,7 +156,7 @@ class ParamCard extends StatelessWidget {
             if (icon != null) Icon(icon),
             Text(
               title,
-              style: TextStyle(color: Colors.white, fontSize: 20),
+              style: TextStyle(color: Colors.white, fontSize: 17),
             ),
           ],
         ),

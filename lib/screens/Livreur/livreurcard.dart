@@ -26,13 +26,11 @@ class LivreurCard extends StatelessWidget {
             if (icon != null) Icon(icon),
             Text(
               title,
-              style: TextStyle(
-                color: Colors.white,
-              ),
+              style: TextStyle(color: Colors.white, fontSize: 17),
             ),
             Text(
               'Total: $total',
-              style: TextStyle(color: Colors.white, fontSize: 20),
+              style: TextStyle(color: Colors.white, fontSize: 17),
             ),
           ],
         ),

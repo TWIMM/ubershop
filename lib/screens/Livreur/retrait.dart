@@ -43,7 +43,7 @@ class _RetraitState extends State<Retrait> {
     SizeConfig().init(context);
     return Scaffold(
       appBar: AppBar(
-        title: Text("Retrait"),
+        title: Text("Demande De Retrait"),
         leading: IconButton(
           icon: Icon(Icons.arrow_back),
           onPressed: () {

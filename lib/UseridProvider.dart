@@ -17,6 +17,9 @@ class UserProvider with ChangeNotifier {
   final CategorieService categorieService = CategorieService();
   int user_id = 0; // Initialize with an empty string
   List messages = []; // List to hold messages
+  List livreur_delivery_start = [];
+  List livreur_delivery_over = [];
+  List livreur_delivery__encours = [];
 
   int get newUserId => user_id;
   void initializeChat() {
@@ -69,6 +72,13 @@ class UserProvider with ChangeNotifier {
   void setUserId(int newUserId) {
     user_id = newUserId;
 
+    notifyListeners();
+  }
+
+  void setUserDelivery(List start, List over, List en_cours) {
+    livreur_delivery_start = start;
+    livreur_delivery_over = over;
+    livreur_delivery__encours = en_cours;
     notifyListeners();
   }
 

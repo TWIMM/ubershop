@@ -20,6 +20,8 @@ import 'screens/Tracking/trackingnumber.dart';
 import 'screens/Tracking/tracking.dart';
 import 'screens/Livreur/dashboard.dart';
 import 'screens/Livreur/retrait.dart';
+import 'screens/Livreur/listelivraison.dart';
+import 'screens/Livreur/details/details_screen.dart';
 
 final Map<String, WidgetBuilder> routes = {
   SplashScreen.routeName: (context) => SplashScreen(),
@@ -43,4 +45,6 @@ final Map<String, WidgetBuilder> routes = {
   Dashboard.routeName: (context) => Dashboard(),
   MyHomePage2.routeName: (context) => MyHomePage2(),
   Retrait.routeName: (context) => Retrait(),
+  Liste.routeName: (context) => Liste(),
+  DeliveryDetailsScreen.routeName: (context) => DeliveryDetailsScreen(),
 };
