@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:Itine/ApiCall/ReqHandler.dart'; // Import your API handler
 import '../../../size_config.dart';
 import 'pro_by_category.dart';
+import 'package:provider/provider.dart';
+import '../../../UseridProvider.dart';
 import 'section_title.dart';
 import '../../../constants.dart';
 import 'package:Itine/screens/home/home_screen.dart';
@@ -17,48 +19,37 @@ class _SpecialOffersState extends State<SpecialOffers> {
   final CategorieService categorieService = CategorieService();
   List<Map<String, dynamic>> categories = [];
   bool isLoading = false;
+  late UserProvider userProvider;
 
   @override
   void initState() {
     super.initState();
-    loadCategories();
-  }
-
-  Future<void> loadCategories() async {
-    if (categories.isEmpty) {
-      try {
-        setState(() {
-          isLoading = true;
-        });
-
-        dynamic response = await categorieService.getCategories();
-        setState(() {
-          categories = List<Map<String, dynamic>>.from(response);
-          isLoading = false;
-        });
-      } catch (e) {
-        // Handle the error accordingly
-        print('Error loading categories: $e');
-        setState(() {
-          isLoading = false;
-        });
-      }
-    }
-  }
-
-  Future<int> loadCount(category_id) async {
-    var responseCount = await categorieService.getcount(category_id);
-    return responseCount;
+    userProvider = Provider.of<UserProvider>(context, listen: false);
+    userProvider.loadCategories();
   }
 
   @override
+  @override
   Widget build(BuildContext context) {
-    SizeConfig().init(context);
+    return Consumer<UserProvider>(
+      builder: (context, provider, child) {
+        // Check if categories are available
+        if (provider.categories.isEmpty) {
+          return CircularProgressIndicator(); // Show loader while loading categories
+        } else {
+          return buildCategoriesWidget(provider.categories);
+        }
+      },
+    );
+  }
+
+  Widget buildCategoriesWidget(List<Map<String, dynamic>> categories) {
     return Column(
       children: [
         Padding(
-          padding:
-              EdgeInsets.symmetric(horizontal: getProportionateScreenWidth(20)),
+          padding: EdgeInsets.symmetric(
+            horizontal: getProportionateScreenWidth(20),
+          ),
           child: SectionTitle(
             title: "Categories",
             press: () {},
@@ -70,9 +61,9 @@ class _SpecialOffersState extends State<SpecialOffers> {
           child: Row(
             children: categories.map((category) {
               return FutureBuilder<int>(
-                future: loadCount(category['id']),
+                future: userProvider.loadCount(category['id']),
                 builder: (BuildContext context, AsyncSnapshot<int> snapshot) {
-                  if (isLoading) {
+                  if (userProvider.isLoading) {
                     return SizedBox(
                       width: getProportionateScreenWidth(50),
                       height: getProportionateScreenWidth(50),
@@ -177,7 +168,6 @@ class SpecialOfferCard extends StatelessWidget {
                             fontWeight: FontWeight.bold,
                           ),
                         ),
-                        TextSpan(text: "$numOfBrands Articles")
                       ],
                     ),
                   ),

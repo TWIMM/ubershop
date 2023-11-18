@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:Itine/ApiCall/ReqHandler.dart';
+import "package:Itine/models/Product.dart";
 
 class ChatMessage {
   String messageContent;
@@ -20,6 +21,10 @@ class UserProvider with ChangeNotifier {
   List livreur_delivery_start = [];
   List livreur_delivery_over = [];
   List livreur_delivery__encours = [];
+  List<Map<String, dynamic>> categories = [];
+  bool isLoading = false;
+  var responseCount = 0;
+  List<Product> popularProducts = [];
 
   int get newUserId => user_id;
   void initializeChat() {
@@ -86,6 +91,54 @@ class UserProvider with ChangeNotifier {
     final newMessage = ChatMessage(
         messageContent: messageContent, messageType: messageType, actions: []);
     messages.add(newMessage);
+    notifyListeners();
+  }
+
+  Future<void> loadCategories() async {
+    if (categories.isEmpty) {
+      try {
+        isLoading = true;
+
+        dynamic response = await categorieService.getCategories();
+        categories = List<Map<String, dynamic>>.from(response);
+      } catch (e) {
+        print('Error loading categories: $e');
+      } finally {
+        isLoading = false;
+        notifyListeners(); // Inform listeners about the change
+      }
+    }
+  }
+
+  Future<int> loadCount(category_id) async {
+    if (responseCount == 0) {
+      responseCount = await categorieService.getcount(category_id);
+      notifyListeners(); // Inform listeners about the change
+    }
+    return responseCount;
+  }
+
+  Future<void> fetchPopularProducts() async {
+    var response = await categorieService.getproducts();
+    print(response);
+    popularProducts =
+        List<Map<String, dynamic>>.from(response).map((productMap) {
+      return Product(
+        id: productMap["id"] as int,
+        images: List<String>.from(productMap["images_names"]),
+        colors: productMap["availaible_colors"].map((hexString) {
+          int colorInt = int.parse(hexString.substring(2), radix: 16);
+          return Color(colorInt);
+        }).toList(),
+        title: productMap["label"],
+        price: productMap["price"],
+        description: productMap["description"],
+        rating: 4.1,
+        isFavourite: false,
+        isPopular: false,
+      );
+    }).toList();
+
     notifyListeners();
   }
 }

@@ -1,59 +1,33 @@
 import 'package:flutter/material.dart';
 import 'package:Itine/components/product_card.dart';
 import 'package:Itine/models/Product.dart';
-import 'package:Itine/ApiCall/ReqHandler.dart';
 import '../../../size_config.dart';
+import '../../../UseridProvider.dart';
+
 import 'section_title.dart';
 import 'allproductbody.dart';
+import 'package:provider/provider.dart';
 
-class PopularProducts extends StatefulWidget {
-  @override
-  _PopularProductsState createState() => _PopularProductsState();
-}
-
-class _PopularProductsState extends State<PopularProducts> {
-  final CategorieService categorieService = CategorieService();
-  List<Product> popularProducts = [];
-  List<Map<String, dynamic>> produits = [];
-
-  @override
-  void initState() {
-    super.initState();
-    // Fetch popular products or initialize the list
-    fetchPopularProducts();
-  }
-
-  Future<void> fetchPopularProducts() async {
-    var response = await categorieService.getproducts();
-    print(response);
-    setState(() {
-      produits = List<Map<String, dynamic>>.from(response);
-    });
-  }
-
+class PopularProducts extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    List<Product> convertedProducts = produits.map((productMap) {
-      //print(productMap["availaible_colors"]);
-      //print(productMap);
-      return Product(
-        id: productMap["id"] as int,
-        images: List<String>.from(productMap["images_names"]),
-        colors: productMap["availaible_colors"].map((hexString) {
-          int colorInt = int.parse(hexString.substring(2), radix: 16);
+    final userProvider = Provider.of<UserProvider>(context, listen: false);
 
-          return Color(colorInt);
-        }).toList(),
-        title: productMap["label"],
-        price: productMap["price"],
-        description: productMap["description"],
-        rating: 4.1,
-        isFavourite: false,
-        isPopular: false,
-      );
-    }).toList();
+    return Consumer<UserProvider>(
+      builder: (context, provider, child) {
+        if (userProvider.popularProducts.isEmpty) {
+          // Fetch popular products if the list is empty
+          userProvider.fetchPopularProducts();
+          return CircularProgressIndicator();
+        } else {
+          return buildProductsWidget(userProvider.popularProducts, context);
+        }
+      },
+    );
+  }
 
-    List<Product> limitedProducts = convertedProducts.take(10).toList();
+  Widget buildProductsWidget(List<Product> products, BuildContext context) {
+    List<Product> limitedProducts = products.take(10).toList();
 
     return Column(
       children: [
