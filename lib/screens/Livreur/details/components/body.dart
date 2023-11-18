@@ -5,7 +5,6 @@ import 'top_rounded_container.dart';
 import '../../delivery.dart';
 import 'package:provider/provider.dart';
 import '../../../../UseridProvider.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import '../../../Livreur/dashboard.dart';
 import 'package:Itine/ApiCall/ReqHandler.dart';
 
@@ -201,25 +200,9 @@ class _DeliveryBodyState extends State<DeliveryBody> {
         );
       }
     } else if (widget.delivery['status_livraison'] == 'en_cours') {
-      Fluttertoast.showToast(
-        msg: 'Cette livraison est déjà en cours',
-        toastLength: Toast.LENGTH_SHORT,
-        gravity: ToastGravity.CENTER,
-        timeInSecForIosWeb: 2,
-        backgroundColor: Colors.red,
-        textColor: Colors.white,
-        fontSize: 16.0,
-      );
+    
     } else {
-      Fluttertoast.showToast(
-        msg: 'Cette livraison est déjà terminée',
-        toastLength: Toast.LENGTH_SHORT,
-        gravity: ToastGravity.CENTER,
-        timeInSecForIosWeb: 1,
-        backgroundColor: Colors.red,
-        textColor: Colors.white,
-        fontSize: 16.0,
-      );
+     
     }
   }
 
