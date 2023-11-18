@@ -67,6 +67,9 @@ class ApiEndpoints {
   static const getcount = '/categories/getcount';
 
   static const getproduct = '/produits/getallproduits';
+  static const getbestproduct = '/favorite/getbyuser';
+  static const addbestproduct = '/favorite/create';
+  static const deletebestproduct = '/favorite/delete';
   static const getproductbycategory = '/produits/getproductbycategory';
   static const getspecificproduct = '/produits/getbyid';
 

@@ -3,6 +3,8 @@ import 'package:Itine/components/product_card.dart';
 import 'package:Itine/models/Product.dart';
 import 'package:Itine/ApiCall/ReqHandler.dart';
 import 'Carousel_card.dart';
+import 'package:provider/provider.dart';
+import '../../../UseridProvider.dart';
 import 'package:Itine/screens/details/details_screen.dart';
 
 class AllProducts extends StatefulWidget {
@@ -17,10 +19,20 @@ class AllProducts extends StatefulWidget {
 class _AllProductsState extends State<AllProducts> {
   final CategorieService categorieService = CategorieService();
   List<Product> convertedProducts = [];
+  int? user_id;
+  var userProvider;
 
   @override
   void initState() {
     super.initState();
+    // Note: Avoid using inherited widgets in initState
+  }
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    userProvider = Provider.of<UserProvider>(context);
+    user_id = userProvider.user_id;
     fetchPopularProducts();
   }
 
@@ -155,12 +167,13 @@ class _AllProductsState extends State<AllProducts> {
                 child: Column(
                   children: [
                     CarouselCard(
+                      user_id: user_id,
                       item: item,
                       cardWidth: 270,
                       height: 600,
                       imagePath: item.images[0],
                       title: item.title,
-                      isActivated: true,
+                      isActivated: false,
                       borderRadius: BorderRadius.circular(8),
                     ),
                     Expanded(

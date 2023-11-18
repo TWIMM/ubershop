@@ -4,8 +4,9 @@ import 'custom_card.dart';
 import 'package:flutter/material.dart';
 import 'package:Itine/screens/details/details_screen.dart';
 import 'package:Itine/components/default_button.dart';
+import 'package:Itine/ApiCall/ReqHandler.dart';
 import 'package:Itine/screens/details/details_screen.dart';
-
+import 'package:Itine/screens/home/home_screen.dart';
 import 'package:Itine/models/Product.dart';
 
 class CarouselCard extends StatefulWidget {
@@ -14,18 +15,19 @@ class CarouselCard extends StatefulWidget {
   final double height;
   final double cardWidth;
   final BorderRadius borderRadius;
-  final Product? item;
-
-  final bool isActivated;
+  final Product item;
+  final user_id;
+  final bool? isActivated;
 
   CarouselCard({
     Key? key,
     required this.imagePath,
     required this.title,
     this.height = 0,
-    this.item,
+    required this.item,
+    this.user_id,
     this.cardWidth = 0,
-    this.isActivated = true,
+    this.isActivated,
     required this.borderRadius,
   }) : super(key: key);
 
@@ -35,6 +37,19 @@ class CarouselCard extends StatefulWidget {
 
 class _CarouselCardState extends State<CarouselCard> {
   bool isActivated = true;
+  final CategorieService categorieService = CategorieService();
+
+  Future<void> addbestproducts() async {
+    var response =
+        await categorieService.addbestproducts(widget.user_id, widget.item!.id);
+
+    if (response == false) {
+      setState(() {
+        isActivated = !isActivated;
+      });
+      Navigator.pushNamed(context, HomeScreen.routeName);
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -100,9 +115,7 @@ class _CarouselCardState extends State<CarouselCard> {
               alignment: Alignment.topRight,
               child: GestureDetector(
                 onTap: () {
-                  setState(() {
-                    isActivated = !isActivated;
-                  });
+                  addbestproducts();
                 },
                 child: Container(
                   width: 28,

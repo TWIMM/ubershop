@@ -26,11 +26,11 @@ class HomeHeader extends StatelessWidget {
               CartScreen.routeName,
             ),
           ),
-          IconBtnWithCounter(
+          /* IconBtnWithCounter(
             svgSrc: "assets/icons/Bell.svg",
             numOfitem: 3,
             press: () {},
-          ),
+          ), */
         ],
       ),
     );

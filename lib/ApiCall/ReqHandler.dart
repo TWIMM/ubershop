@@ -101,6 +101,36 @@ class CategorieService {
     return reqRes['products'];
   }
 
+  Future deletebestproduct(var user_id, var product_id) async {
+    final data = {'user_id': user_id, "product_id": product_id};
+
+    final response =
+        await RequestService.postLikeGet(ApiEndpoints.addbestproduct, data);
+    final reqRes = response;
+    // print('gett');
+    return reqRes['error'];
+  }
+
+  Future addbestproducts(var user_id, var product_id) async {
+    final data = {'user_id': user_id, "product_id": product_id};
+
+    final response =
+        await RequestService.postLikeGet(ApiEndpoints.addbestproduct, data);
+    final reqRes = response;
+    // print('gett');
+    return reqRes['error'];
+  }
+
+  Future getbestproducts(var user_id) async {
+    final data = {'user_id': user_id};
+
+    final response =
+        await RequestService.postLikeGet(ApiEndpoints.getbestproduct, data);
+    final reqRes = response;
+    // print('gett');
+    return reqRes['products'];
+  }
+
   Future addToCart(product_id, user_id) async {
     final data = {'user_id': user_id, 'product_id': product_id};
 
