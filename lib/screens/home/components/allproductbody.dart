@@ -23,15 +23,9 @@ class _AllProductsState extends State<AllProducts> {
   var userProvider;
 
   @override
-  void initState() {
-    super.initState();
-    // Note: Avoid using inherited widgets in initState
-  }
-
-  @override
   void didChangeDependencies() {
     super.didChangeDependencies();
-    userProvider = Provider.of<UserProvider>(context);
+    userProvider = Provider.of<UserProvider>(context, listen: false);
     user_id = userProvider.user_id;
     fetchPopularProducts();
   }
@@ -51,7 +45,8 @@ class _AllProductsState extends State<AllProducts> {
           price: productMap["price"],
           description: productMap["description"],
           rating: 4.1,
-          isFavourite: true,
+          isFavourite:
+              userProvider.favoriteProductIds.contains(productMap["id"]),
           isPopular: true,
         );
       }));
@@ -161,6 +156,7 @@ class _AllProductsState extends State<AllProducts> {
             itemCount: convertedProducts.length,
             itemBuilder: (_, int index) {
               final item = convertedProducts[index];
+              print(userProvider.favoriteProductIds.contains(item.id));
               return Container(
                 margin: const EdgeInsets.only(bottom: 10.0),
                 height: 300,
@@ -173,7 +169,8 @@ class _AllProductsState extends State<AllProducts> {
                       height: 600,
                       imagePath: item.images[0],
                       title: item.title,
-                      isActivated: false,
+                      isActivated:
+                          userProvider.favoriteProductIds.contains(item.id),
                       borderRadius: BorderRadius.circular(8),
                     ),
                     Expanded(

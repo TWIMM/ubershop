@@ -17,6 +17,8 @@ class PopularProducts extends StatelessWidget {
       builder: (context, provider, child) {
         if (userProvider.popularProducts.isEmpty) {
           // Fetch popular products if the list is empty
+          userProvider.fetchBestProducts();
+
           userProvider.fetchPopularProducts();
           return CircularProgressIndicator();
         } else {

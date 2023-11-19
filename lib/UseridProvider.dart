@@ -25,8 +25,39 @@ class UserProvider with ChangeNotifier {
   bool isLoading = false;
   var responseCount = 0;
   List<Product> popularProducts = [];
+  List<int> favoriteProductIds = [];
+  List<Product> allProducts = [];
 
   int get newUserId => user_id;
+  Future<void> fetchBestProducts() async {
+    print('fetching best product...');
+    var response = await categorieService.getbestproducts(user_id);
+    allProducts = List<Product>.from(response.map((productMap) {
+      int productId = productMap["id"] as int;
+      favoriteProductIds.add(productId);
+      return Product(
+        id: productMap["id"] as int,
+        images: List<String>.from(productMap["images_names"]),
+        colors: productMap["availaible_colors"].map((hexString) {
+          int colorInt = int.parse(hexString.substring(2), radix: 16);
+          return Color(colorInt);
+        }).toList(),
+        title: productMap["label"],
+        price: productMap["price"],
+        description: productMap["description"],
+        rating: 4.1,
+        isFavourite: true,
+        isPopular: true,
+      );
+    }));
+
+    notifyListeners();
+  }
+
+  bool isProductInFavorites(int productId) {
+    return favoriteProductIds.contains(productId);
+  }
+
   void initializeChat() {
     if (messages.isEmpty) {
       // Only add initial message if the list is empty

@@ -36,7 +36,6 @@ class CarouselCard extends StatefulWidget {
 }
 
 class _CarouselCardState extends State<CarouselCard> {
-  bool isActivated = true;
   final CategorieService categorieService = CategorieService();
 
   Future<void> addbestproducts() async {
@@ -44,9 +43,6 @@ class _CarouselCardState extends State<CarouselCard> {
         await categorieService.addbestproducts(widget.user_id, widget.item!.id);
 
     if (response == false) {
-      setState(() {
-        isActivated = !isActivated;
-      });
       Navigator.pushNamed(context, HomeScreen.routeName);
     }
   }
@@ -122,13 +118,15 @@ class _CarouselCardState extends State<CarouselCard> {
                   height: 28,
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(100),
-                    color: isActivated
+                    color: widget.isActivated == true
                         ? const Color.fromARGB(255, 249, 188, 184)
                         : Color.fromARGB(118, 187, 187, 187),
                   ),
                   child: Icon(
                     Icons.favorite,
-                    color: isActivated ? Colors.red : Colors.white,
+                    color: widget.isActivated == true
+                        ? Color(0xFFFF1844)
+                        : Colors.white,
                     size: 14,
                   ),
                 ),
