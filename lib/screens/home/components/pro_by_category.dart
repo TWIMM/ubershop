@@ -127,6 +127,7 @@ class _ProByCategoryState extends State<ProByCategory> {
                       children: [
                         CarouselCard(
                           item: item,
+                          user_id: userProvider.user_id,
                           cardWidth: 270,
                           height: 600,
                           imagePath: item.images[0],

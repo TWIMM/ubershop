@@ -5,6 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:Itine/screens/details/details_screen.dart';
 import 'package:Itine/components/default_button.dart';
 import 'package:Itine/ApiCall/ReqHandler.dart';
+import 'package:provider/provider.dart';
+import '../../../UseridProvider.dart';
 import 'package:Itine/screens/details/details_screen.dart';
 import 'package:Itine/screens/home/home_screen.dart';
 import 'package:Itine/models/Product.dart';
@@ -38,11 +40,14 @@ class CarouselCard extends StatefulWidget {
 class _CarouselCardState extends State<CarouselCard> {
   final CategorieService categorieService = CategorieService();
 
-  Future<void> addbestproducts() async {
+  Future<void> addbestproducts(BuildContext context) async {
+    final userProvider = Provider.of<UserProvider>(context, listen: false);
+
     var response =
         await categorieService.addbestproducts(widget.user_id, widget.item!.id);
 
     if (response == false) {
+      userProvider.fetchBestProducts();
       Navigator.pushNamed(context, HomeScreen.routeName);
     }
   }
@@ -111,7 +116,7 @@ class _CarouselCardState extends State<CarouselCard> {
               alignment: Alignment.topRight,
               child: GestureDetector(
                 onTap: () {
-                  addbestproducts();
+                  addbestproducts(context);
                 },
                 child: Container(
                   width: 28,

@@ -96,7 +96,7 @@ class _LikedProductsState extends State<LikedProducts> {
                         children: [
                           LikedCard(
                             item: item,
-                            user_id: user_id,
+                            user_id: userProvider.user_id,
                             cardWidth: 270,
                             height: 600,
                             imagePath: item.images[0],

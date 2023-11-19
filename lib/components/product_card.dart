@@ -3,12 +3,15 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:Itine/models/Product.dart';
 import 'package:Itine/screens/details/details_screen.dart';
 import '../constants.dart';
+import 'package:Itine/ApiCall/ReqHandler.dart';
+
 import 'package:provider/provider.dart';
 import '../../../UseridProvider.dart';
+import 'package:Itine/screens/home/home_screen.dart';
 import '../size_config.dart';
 
 class ProductCard extends StatelessWidget {
-  const ProductCard({
+  ProductCard({
     Key? key,
     this.height = 200,
     this.width = 140,
@@ -21,6 +24,18 @@ class ProductCard extends StatelessWidget {
   final double height;
   final Product product;
   final double left;
+  final CategorieService categorieService = CategorieService();
+
+  Future<void> addbestproducts(BuildContext context) async {
+    final userProvider = Provider.of<UserProvider>(context, listen: false);
+    var response = await categorieService.addbestproducts(
+        userProvider.user_id, product.id);
+
+    if (response == false) {
+      userProvider.fetchBestProducts();
+      Navigator.pushNamed(context, HomeScreen.routeName);
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -79,14 +94,17 @@ class ProductCard extends StatelessWidget {
                       ),
                       InkWell(
                         borderRadius: BorderRadius.circular(50),
-                        onTap: () {},
+                        onTap: () {
+                          addbestproducts(context);
+                        },
                         child: Container(
                           padding:
                               EdgeInsets.all(getProportionateScreenWidth(8)),
                           height: getProportionateScreenWidth(28),
                           width: getProportionateScreenWidth(28),
                           decoration: BoxDecoration(
-                            color: product.isFavourite
+                            color: userProvider.favoriteProductIds
+                                    .contains(product.id)
                                 ? kPrimaryColor.withOpacity(0.15)
                                 : kSecondaryColor.withOpacity(0.1),
                             shape: BoxShape.circle,

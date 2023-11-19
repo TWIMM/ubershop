@@ -4,6 +4,8 @@ import '../../../size_config.dart';
 import 'discount_banner.dart';
 import 'home_header.dart';
 import 'package:Itine/ApiCall/ReqHandler.dart';
+import 'package:provider/provider.dart';
+import '../../../UseridProvider.dart';
 import 'popular_product.dart';
 import 'special_offers.dart';
 import 'package:geolocator/geolocator.dart';
@@ -24,11 +26,14 @@ class _BodyState extends State<Body> {
   late LocationPermission permission;
   String _currentAddress = "";
   List categories = [];
+  late UserProvider userProvider;
 
   @override
   void initState() {
     super.initState();
     _getCurrentLocation();
+    userProvider = Provider.of<UserProvider>(context, listen: false);
+    userProvider.fetchBestProducts();
   }
 
   Future<void> _getCurrentLocation() async {

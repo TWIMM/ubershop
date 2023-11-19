@@ -5,6 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:Itine/screens/details/details_screen.dart';
 import 'package:Itine/components/default_button.dart';
 import 'package:Itine/ApiCall/ReqHandler.dart';
+import 'package:provider/provider.dart';
+import '../../../UseridProvider.dart';
 import 'package:Itine/screens/details/details_screen.dart';
 import 'package:Itine/screens/home/home_screen.dart';
 import 'package:Itine/models/Product.dart';
@@ -37,9 +39,13 @@ class LikedCard extends StatefulWidget {
 
 class _LikedCardState extends State<LikedCard> {
   bool isActivated = true;
+  bool isLoading = false;
+  late UserProvider userProvider;
   final CategorieService categorieService = CategorieService();
 
-  Future<void> deletebestproduct() async {
+  Future<void> deletebestproduct(BuildContext context) async {
+    userProvider = Provider.of<UserProvider>(context, listen: false);
+
     var response = await categorieService.deletebestproduct(
         widget.user_id, widget.item!.id);
 
@@ -47,6 +53,7 @@ class _LikedCardState extends State<LikedCard> {
       setState(() {
         isActivated = !isActivated;
       });
+      userProvider.fetchBestProducts();
       Navigator.pushNamed(context, HomeScreen.routeName);
     }
   }
@@ -115,7 +122,7 @@ class _LikedCardState extends State<LikedCard> {
               alignment: Alignment.topRight,
               child: GestureDetector(
                 onTap: () {
-                  deletebestproduct();
+                  deletebestproduct(context);
                 },
                 child: Container(
                   width: 28,
