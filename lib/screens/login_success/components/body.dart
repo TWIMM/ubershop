@@ -26,11 +26,60 @@ class Body extends StatelessWidget {
         SizedBox(
           width: SizeConfig.screenWidth * 0.6,
           child: DefaultButton(
-            text: "Aller à la page d'acceuil",
+            text: "Valider votre adresse",
             press: () {
-              Navigator.pushNamed(
+              /*  Navigator.pushNamed(
                 context,
                 HomeScreen.routeName,
+              ); */
+
+              showModalBottomSheet(
+                context: context,
+                backgroundColor:
+                    Colors.transparent, // Set background color to transparent
+                builder: (BuildContext context) {
+                  return ClipRRect(
+                    borderRadius:
+                        BorderRadius.vertical(top: Radius.circular(20.0)),
+                    child: Container(
+                      decoration: BoxDecoration(
+                        color: Colors.white, // Set the desired background color
+                      ),
+                      height: 400,
+                      padding: EdgeInsets.all(16),
+                      child: Column(
+                        mainAxisSize: MainAxisSize.min,
+                        children: <Widget>[
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.end,
+                            children: <Widget>[],
+                          ),
+                          TextFormField(
+                            keyboardType: TextInputType.name,
+                            onChanged: (value) {},
+                            validator: (value) {},
+                            decoration: InputDecoration(
+                              labelText: "Adresse",
+                              hintText: "Entrez votre adresse",
+                              // If  you are using latest version of flutter then lable text and hint text shown like this
+                              // if you r using flutter less then 1.20.* then maybe this is not working properly
+                              floatingLabelBehavior:
+                                  FloatingLabelBehavior.always,
+                            ),
+                          ),
+                          SizedBox(height: 20),
+                          DefaultButton(
+                            text: "Continuer",
+                            press: () async {
+                              Navigator.pushNamed(
+                                  context, HomeScreen.routeName);
+                            },
+                          ),
+                        ],
+                      ),
+                    ),
+                  );
+                },
               );
             },
           ),

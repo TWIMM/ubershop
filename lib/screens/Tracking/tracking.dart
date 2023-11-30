@@ -15,19 +15,19 @@ class _MyHomePageState extends State<MyHomePage2> {
   ///this TextDto present in a package add data in this dto and set in a list.
 
   List step1 = [
-    {'date': '23/01/2023'},
+    {'date': 'Plus que 35 minutes'},
   ];
 
   List step2 = [
-    {'date': '24/01/2023'},
+    {'date': 'Plus que 20 minutes'},
   ];
 
   List step3 = [
-    {'date': '25/01/2023'},
+    {'date': 'Plus que 10 minutes'},
   ];
 
   List step4 = [
-    {'date': '26/01/2023'},
+    {'date': 'Bouclé'},
   ];
 
   @override
