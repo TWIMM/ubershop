@@ -36,38 +36,6 @@ class _LikedProductsState extends State<LikedProducts> {
     return Scaffold(
       appBar: AppBar(
         title: Text("Vos produits préférés"),
-        actions: [
-          Padding(
-            padding: const EdgeInsets.all(10.0),
-            child: Container(
-              width: 27,
-              height: 27,
-              child: Image.asset('assets/images/homme.png', width: 7),
-            ),
-          ),
-          SizedBox(
-            width: 5,
-          ),
-          Padding(
-            padding: const EdgeInsets.all(10.0),
-            child: Container(
-              width: 27,
-              height: 27,
-              child: Image.asset('assets/images/femme.png', width: 7),
-            ),
-          ),
-          SizedBox(
-            width: 10,
-          ),
-          Padding(
-            padding: const EdgeInsets.all(10.0),
-            child: Container(
-              width: 27,
-              height: 27,
-              child: Image.asset('assets/images/enfants.png', width: 7),
-            ),
-          )
-        ],
       ),
       body: Center(
         child: Container(

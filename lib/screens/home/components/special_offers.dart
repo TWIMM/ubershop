@@ -57,8 +57,8 @@ class _SpecialOffersState extends State<SpecialOffers> {
         ),
         SizedBox(height: getProportionateScreenWidth(20)),
         SingleChildScrollView(
-          scrollDirection: Axis.horizontal,
-          child: Row(
+          scrollDirection: Axis.vertical,
+          child: Column(
             children: categories.map((category) {
               return FutureBuilder<int>(
                 future: userProvider.loadCount(category['id']),
@@ -124,12 +124,16 @@ class SpecialOfferCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.only(left: getProportionateScreenWidth(20)),
+      padding: EdgeInsets.only(
+          left: getProportionateScreenWidth(20),
+          bottom: getProportionateScreenWidth(20),
+          right: getProportionateScreenWidth(20),
+          top: getProportionateScreenWidth(20)),
       child: GestureDetector(
         onTap: press,
         child: SizedBox(
-          width: getProportionateScreenWidth(242),
-          height: getProportionateScreenWidth(200),
+          width: getProportionateScreenWidth(350),
+          height: getProportionateScreenWidth(150),
           child: ClipRRect(
             borderRadius: BorderRadius.circular(20),
             child: Stack(
